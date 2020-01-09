@@ -48,7 +48,7 @@ class mainContainer extends React.Component {
         `
 
 
-        console.log(this.props)
+        // console.log(this.props)
         return(
             <div>
                 <Title>{this.props.hello} {this.props.user.name}</Title>
@@ -61,7 +61,7 @@ class mainContainer extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    console.log(state)
+    // console.log(state)
     return {
         hello: state.hello,
         user: state.user,

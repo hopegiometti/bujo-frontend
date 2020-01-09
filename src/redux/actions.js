@@ -18,3 +18,17 @@ export const setPages = (pages) => {
       payload: pages
     }
 }
+
+export const setEvents = (events) => {
+    return {
+      type: "SET_EVENTS",
+      payload: events
+    }
+}
+
+export const addEvent = (newEvent) => {
+    return {
+        type: "ADD_EVENT",
+        payload: newEvent
+    }
+}
