@@ -30,10 +30,24 @@ const journalReducer = (state = initialState , action) => {
                 events: action.payload
             }
         case 'ADD_EVENT':
-            let spreadEvents = [...state.events, action.payload]
+            let spreadedEvents = [...state.events, action.payload]
             return {
                 ...state,
-                events: spreadEvents
+                events: spreadedEvents
+            }
+        case 'DELETE_EVENT':
+            let filteredEvents = state.events.filter(event => event.id !== action.payload)
+            return {
+                ...state,
+                events: filteredEvents
+            }
+        case 'UPDATE_EVENT':
+            console.log(action.payload.id)
+            let filteredEventsTwo = state.events.filter(event => event.id !== action.payload.id)
+            let updatedEvents = [...filteredEventsTwo, action.payload]
+            return {
+                ...state,
+                events: updatedEvents
             }
         default: 
             return state

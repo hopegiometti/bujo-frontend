@@ -32,3 +32,17 @@ export const addEvent = (newEvent) => {
         payload: newEvent
     }
 }
+
+export const deleteEvent = (eventToDelete) => {
+  return {
+    type: "DELETE_EVENT",
+    payload: eventToDelete
+  }
+}
+
+export const updateEvent = (eventToUpdate) => {
+  return {
+    type: "UPDATE_EVENT",
+    payload: eventToUpdate
+  }
+}
