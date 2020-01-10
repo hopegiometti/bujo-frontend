@@ -46,3 +46,17 @@ export const updateEvent = (eventToUpdate) => {
     payload: eventToUpdate
   }
 }
+
+export const setPage = (pageToDisplay) => {
+  return {
+    type: "SET_PAGE",
+    payload: pageToDisplay
+  }
+}
+
+export const addPage = (newPage) => {
+  return {
+    type: "ADD_PAGE",
+    payload: newPage
+  }
+}

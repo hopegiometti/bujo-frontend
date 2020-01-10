@@ -1,12 +1,16 @@
 import React from 'react'
+//components
 import Event from './Event'
-import styled from 'styled-components';
 import EventForm from './EventForm'
+//styling
+import styled from 'styled-components';
+//redux
 import { connect } from 'react-redux'
 import { setEvents } from '../redux/actions'
 import { deleteEvent } from '../redux/actions'
 import { addEvent } from '../redux/actions'
 import { updateEvent } from '../redux/actions'
+
 
 class Page extends React.Component {
     state={
@@ -14,8 +18,22 @@ class Page extends React.Component {
         name: '',
         date: 1,
         page_id: this.props.page.id,
-        event: {}
+        event: {},
+        layout: this.props.page.layout
     }
+
+    //lifecycle
+    componentDidMount() {
+        // console.log(this.props, this.props.page.events)
+        // this.props.setEvents(this.props.page.events)
+
+    }
+
+    //form methods
+    handleChange = (evt) => {
+        this.setState({
+            [evt.target.name]: evt.target.value
+        })}
 
     handleNewSubmit = (evt) => {
         evt.preventDefault()
@@ -33,7 +51,6 @@ class Page extends React.Component {
         })
         .then(r => r.json())
         .then((newEvent) => {
-            console.log(newEvent)
             this.props.addEvent(newEvent)
             this.setState({
                 formType: 'new'
@@ -41,33 +58,7 @@ class Page extends React.Component {
         })
       }
     
-    handleChange = (evt) => {
-    this.setState({
-        [evt.target.name]: evt.target.value
-    })}
-
-    componentDidMount() {
-        fetch("http://localhost:3000/events")
-        .then(r => r.json())
-        .then((events) => {
-            this.props.setEvents(events)
-        })
-    }
-
-    deleteEvent = (eventToDelete) => {
-        // console.log(eventToDelete.id)
-        fetch(`http://localhost:3000/events/${eventToDelete.id}`, {
-            method: "DELETE"
-        })
-        .then(r => r.json())
-        .then((msg) => {
-            console.log(msg.data)
-            this.props.deleteEvent(msg.data.id)
-        })
-    }
-
     updateEvent = (eventToUpdate) => {
-        console.log(eventToUpdate)
         this.setState({
             formType: 'update',
             name: eventToUpdate.name,
@@ -92,44 +83,64 @@ class Page extends React.Component {
         })
         .then(r => r.json())
         .then((updatedEvent) => {
-          console.log(updatedEvent)
           this.props.updateEvent(updatedEvent)  
         })
     }
 
+    
+    //other methods
+    deleteEvent = (eventToDelete) => {
+        // console.log("clicked")
+        fetch(`http://localhost:3000/events/${eventToDelete.id}`, {
+            method: "DELETE"
+        })
+        .then(r => r.json())
+        .then((msg) => {
+            this.props.deleteEvent(msg.data.id)
+        })
+    }
+
+    
+    //render (duh)
     render() {
+        console.log(this.props, this.props.events)
+
+        //styled components
         const Title = styled.h3`
             font-size: 1.2em;
             text-align: left;
             color: palevioletred;
         `;
-
         const PageText = styled.div`
             font-size: 1em;
             text-align: left;
             color: palevioletred;
         `
 
-        console.log(this.props)
-        let sortedEvents = this.props.events.sort((a, b) => a.date - b.date)
+        
+        // console.log("hi from 121",this.props.events)
         return(<div>
-            {this.props.page.month}
-            <Title>Events:</Title>
-            <PageText>
-                {sortedEvents.map(event => <Event key={event.id} event={event} deleteEvent={this.deleteEvent} updateEvent={this.updateEvent}/>)}
-            </PageText>
-            <div>
-               {this.state.formType === 'new' ? <EventForm page={this.props.page} handleNewSubmit={this.handleNewSubmit} handleChange={this.handleChange} name={this.state.name} date={this.state.date} type='new'/> : <EventForm page={this.props.page} handleUpdateSubmit={this.handleUpdateSubmit} handleChange={this.handleChange} name={this.state.name} date={this.state.date} type='update' />} 
-            </div>
+            { this.props.page.month ? 
+                <div>
+                    {this.props.page.month}
+                    <Title>Events:</Title>
+                    <PageText>
+                        {this.props.events.map(event => <Event key={event.id} event={event} deleteEvent={this.deleteEvent} updateEvent={this.updateEvent}/>)}
+                    </PageText>
+                    <div>
+                        {this.state.formType === 'new' ? <EventForm page={this.props.page} handleNewSubmit={this.handleNewSubmit} handleChange={this.handleChange} name={this.state.name} date={this.state.date} type='new'/> : <EventForm page={this.props.page} handleUpdateSubmit={this.handleUpdateSubmit} handleChange={this.handleChange} name={this.state.name} date={this.state.date} type='update' />} 
+                    </div> 
+                </div>
+            : null}
+           
         </div>)
     }
 }
 
-const mapStateToProps = (state) => {
-    console.log(state)
-    return {
-        events: state.events
-    }
-}
+// const mapStateToProps = (state) => {
+//     return {
+//         events: state.events
+//     }
+// }
 
-export default connect(mapStateToProps, { setEvents, deleteEvent, addEvent, updateEvent } )(Page)
+export default connect(null, { deleteEvent, addEvent, updateEvent, setEvents } )(Page)

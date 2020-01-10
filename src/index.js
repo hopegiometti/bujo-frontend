@@ -3,9 +3,15 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+
+//styling
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+//redux
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
 import journalReducer from './redux/journalReducer'
+
 
 let storeObj = createStore(journalReducer)
 
