@@ -120,19 +120,13 @@ class Page extends React.Component {
         `
 
         
-        // console.log("hi from 121",this.props.events)
+        console.log("hi from 123",this.props.events)
         return(<div>
             { this.props.page.month ? 
                 <div>
                     {this.props.page.month}
                     <Title>Events:</Title>
                     <Month page={this.props.page} events={this.props.events} handleNewSubmit={this.handleNewSubmit} handleEventNameChange={this.handleEventNameChange} deleteEvent={this.deleteEvent} formType={this.state.formType}/>
-                    {/* <PageText>
-                        {this.props.events.map(event => <Event key={event.id} event={event} deleteEvent={this.deleteEvent} updateEvent={this.updateEvent}/>)}
-                    </PageText>
-                    <div>
-                        {this.state.formType === 'new' ? <EventForm page={this.props.page} handleNewSubmit={this.handleNewSubmit} handleChange={this.handleChange} name={this.state.name} date={this.state.date} type='new'/> : <EventForm page={this.props.page} handleUpdateSubmit={this.handleUpdateSubmit} handleChange={this.handleChange} name={this.state.name} date={this.state.date} type='update' />} 
-                    </div>  */}
                 </div>
             : null}
            

@@ -5,14 +5,14 @@ import DateComponent from './DateComponent'
 class Month extends React.Component {
 
     renderDates = () => {
-        
+        console.log(this.props.page.month)
         let dates = []
         if (this.props.page.month === "September" || this.props.page.month === "April" || this.props.page.month === "June" || this.props.page.month === "November") {
             for (let i = 1; i <= 30; i++) {
                 let eventForSpecificDate = this.props.events.filter(event => event.date === i)
                 // console.log(eventForSpecificDate)
                 if (eventForSpecificDate) {
-                    dates.push(<DateComponent date={i} key={i} handleEventNameChange={this.props.handleEventNameChange} deleteEvent={this.props.deleteEvent} handleUpdateSubmit={this.props.handleUpdateSubmit} updateEvent={this.props.updateEvent} formType={this.props.formType}/>)
+                    dates.push(<DateComponent date={i} key={i}  event={eventForSpecificDate} handleEventNameChange={this.props.handleEventNameChange} deleteEvent={this.props.deleteEvent} handleUpdateSubmit={this.props.handleUpdateSubmit} updateEvent={this.props.updateEvent} formType={this.props.formType}/>)
                 } else {
                     dates.push(<DateComponent date={i} key={i} handleNewSubmit={this.props.handleNewSubmit} handleEventNameChange={this.props.handleEventNameChange} formType={this.props.formType}/>)
                 }
@@ -28,6 +28,7 @@ class Month extends React.Component {
                 }
             }
         } else {
+            console.log("hi from 31")
             for (let i = 1; i <= 31; i++) {
                 let eventForSpecificDate = this.props.events.filter(event => event.date === i)
                 // console.log(eventForSpecificDate)
