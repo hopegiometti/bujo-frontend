@@ -2,6 +2,7 @@ import React from 'react'
 //components
 import Event from './Event'
 import EventForm from './EventForm'
+import Month from './Month'
 //styling
 import styled from 'styled-components';
 //redux
@@ -30,12 +31,12 @@ class Page extends React.Component {
     }
 
     //form methods
-    handleChange = (evt) => {
+    handleEventNameChange = (evt) => {
         this.setState({
             [evt.target.name]: evt.target.value
         })}
 
-    handleNewSubmit = (evt) => {
+    handleNewSubmit = (evt, eventDate) => {
         evt.preventDefault()
         fetch("http://localhost:3000/events", {
             method: "POST",
@@ -45,7 +46,7 @@ class Page extends React.Component {
             },
             body: JSON.stringify({
                 name: this.state.name,
-                date: this.state.date,
+                date: eventDate,
                 page_id: this.state.page_id
             })
         })
@@ -124,12 +125,13 @@ class Page extends React.Component {
                 <div>
                     {this.props.page.month}
                     <Title>Events:</Title>
-                    <PageText>
+                    <Month page={this.props.page} events={this.props.events} handleNewSubmit={this.handleNewSubmit} handleEventNameChange={this.handleEventNameChange} deleteEvent={this.deleteEvent}/>
+                    {/* <PageText>
                         {this.props.events.map(event => <Event key={event.id} event={event} deleteEvent={this.deleteEvent} updateEvent={this.updateEvent}/>)}
                     </PageText>
                     <div>
                         {this.state.formType === 'new' ? <EventForm page={this.props.page} handleNewSubmit={this.handleNewSubmit} handleChange={this.handleChange} name={this.state.name} date={this.state.date} type='new'/> : <EventForm page={this.props.page} handleUpdateSubmit={this.handleUpdateSubmit} handleChange={this.handleChange} name={this.state.name} date={this.state.date} type='update' />} 
-                    </div> 
+                    </div>  */}
                 </div>
             : null}
            

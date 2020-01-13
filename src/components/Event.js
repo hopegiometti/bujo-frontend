@@ -17,7 +17,7 @@ class Event extends React.Component {
             border-radius: 3px;
         `;
 
-
+        console.log("hi from event!", this.props.event.name)
         return(<div>
             <EventInfo onClick={() => this.props.updateEvent(this.props.event)}>
              {this.props.event.date} {this.props.event.name}

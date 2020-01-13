@@ -140,7 +140,7 @@ class mainContainer extends React.Component {
                 </IndexStyle>
                 <Journal>
                     {/* <JournalContainer journal={this.props.journal} page={this.props.page} events={this.props.events}/> */}
-                    {this.state.showPageForm ? <PageForm togglePageForm={this.togglePageForm} newPageSubmit={this.newPageSubmit} handlePageFormMonthChange={this.handlePageFormMonthChange} handlePageFormLayoutChange={this.handlePageFormLayoutChange} pageMonth={this.state.pageMonth} pageLayout={this.state.pageLayout}/> : <JournalContainer journal={this.props.journal} page={this.props.page} events={this.props.events}/>}
+                    {this.state.showPageForm ? <PageForm togglePageForm={this.togglePageForm} newPageSubmit={this.newPageSubmit} handlePageFormMonthChange={this.handlePageFormMonthChange} handlePageFormLayoutChange={this.handlePageFormLayoutChange} pageMonth={this.state.pageMonth} pageLayout={this.state.pageLayout}/> : <JournalContainer journal={this.props.journal} page={this.props.page} events={this.props.events} />}
                 </Journal>
             </div>
         )

@@ -5,7 +5,7 @@ import { addEvent } from '../redux/actions'
 class EventForm extends React.Component {
     state={
         name: '',
-        date: 1,
+        date: this.props.date,
         page_id: this.props.page.id
     }
 
@@ -37,9 +37,21 @@ class EventForm extends React.Component {
     // })}
 
     render() {
-        // console.log(this.props)
+        console.log(this.props)
         return(<div>
-            { this.props.type === 'new' ? 
+            <form onSubmit={(evt) => this.props.handleNewSubmit(evt, this.props.date)}>
+                        <input
+                            onChange={this.props.handleEventNameChange}
+                            type="text"
+                            name="name"
+                            value={this.props.name}
+                            placeholder="new event"
+                        />
+                    <input type="submit" value="Submit"/>
+            </form>    
+        
+
+            {/* { this.props.type === 'new' ? 
                 <div>
                 <h3>New Event</h3>
                     <form onSubmit={this.props.handleNewSubmit}>
@@ -87,9 +99,16 @@ class EventForm extends React.Component {
                         <input type="submit" value="Submit"/>
                     </form>
                 </div>
-            }
+            } */}
         </div>)
     }
 }
 
-export default connect(null, { addEvent })(EventForm)
+const mapStateToProps = (state) => {
+    // console.log(state)
+    return {
+        page: state.page,
+    }
+}
+
+export default connect(mapStateToProps, { addEvent })(EventForm)
