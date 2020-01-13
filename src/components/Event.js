@@ -19,7 +19,7 @@ class Event extends React.Component {
 
         console.log("hi from event!", this.props.event.name)
         return(<div>
-            <EventInfo onClick={() => this.props.updateEvent(this.props.event)}>
+            <EventInfo onClick={() => this.props.updateEvent(this.props.event, this.props.event.date)}>
              {this.props.event.date} {this.props.event.name}
             </EventInfo>
             <DeleteButton onClick={()=> this.props.deleteEvent(this.props.event)}>

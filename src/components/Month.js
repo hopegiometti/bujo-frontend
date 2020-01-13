@@ -12,9 +12,9 @@ class Month extends React.Component {
                 let eventForSpecificDate = this.props.events.filter(event => event.date === i)
                 // console.log(eventForSpecificDate)
                 if (eventForSpecificDate) {
-                    dates.push(<DateComponent date={i} key={i} handleNewSubmit={this.props.handleNewSubmit} handleEventNameChange={this.props.handleEventNameChange} deleteEvent={this.props.deleteEvent}/>)
+                    dates.push(<DateComponent date={i} key={i} handleEventNameChange={this.props.handleEventNameChange} deleteEvent={this.props.deleteEvent} handleUpdateSubmit={this.props.handleUpdateSubmit} updateEvent={this.props.updateEvent} formType={this.props.formType}/>)
                 } else {
-                    dates.push(<DateComponent date={i} key={i} handleNewSubmit={this.props.handleNewSubmit} handleEventNameChange={this.props.handleEventNameChange} deleteEvent={this.props.deleteEvent}/>)
+                    dates.push(<DateComponent date={i} key={i} handleNewSubmit={this.props.handleNewSubmit} handleEventNameChange={this.props.handleEventNameChange} formType={this.props.formType}/>)
                 }
             }
         } else if (this.props.page.month === "February") {
@@ -22,9 +22,9 @@ class Month extends React.Component {
                 let eventForSpecificDate = this.props.events.filter(event => event.date === i)
                 // console.log(eventForSpecificDate)
                 if (eventForSpecificDate) {
-                    dates.push(<DateComponent date={i} key={i} event={eventForSpecificDate} handleNewSubmit={this.props.handleNewSubmit} handleEventNameChange={this.props.handleEventNameChange} deleteEvent={this.props.deleteEvent}/>)
+                    dates.push(<DateComponent date={i} key={i} event={eventForSpecificDate} handleEventNameChange={this.props.handleEventNameChange} deleteEvent={this.props.deleteEvent} handleUpdateSubmit={this.props.handleUpdateSubmit} updateEvent={this.props.updateEvent} formType={this.props.formType}/>)
                 } else {
-                    dates.push(<DateComponent date={i} key={i} handleNewSubmit={this.props.handleNewSubmit} handleEventNameChange={this.props.handleEventNameChange} deleteEvent={this.props.deleteEvent}/>)
+                    dates.push(<DateComponent date={i} key={i} handleNewSubmit={this.props.handleNewSubmit} handleEventNameChange={this.props.handleEventNameChange} formType={this.props.formType}/>)
                 }
             }
         } else {
@@ -32,9 +32,9 @@ class Month extends React.Component {
                 let eventForSpecificDate = this.props.events.filter(event => event.date === i)
                 // console.log(eventForSpecificDate)
                 if (eventForSpecificDate) {
-                    dates.push(<DateComponent date={i} key={i} event={eventForSpecificDate} handleNewSubmit={this.props.handleNewSubmit} handleEventNameChange={this.props.handleEventNameChange} deleteEvent={this.props.deleteEvent}/>)
+                    dates.push(<DateComponent date={i} key={i} event={eventForSpecificDate} handleEventNameChange={this.props.handleEventNameChange} deleteEvent={this.props.deleteEvent} handleUpdateSubmit={this.props.handleUpdateSubmit} updateEvent={this.props.updateEvent} formType={this.props.formType}/>)
                 } else {
-                    dates.push(<DateComponent date={i} key={i} handleNewSubmit={this.props.handleNewSubmit} handleEventNameChange={this.props.handleEventNameChange} deleteEvent={this.props.deleteEvent}/>)
+                    dates.push(<DateComponent date={i} key={i} handleNewSubmit={this.props.handleNewSubmit} handleEventNameChange={this.props.handleEventNameChange} formType={this.props.formType}/>)
                 }
             }
         }

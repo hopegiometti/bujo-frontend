@@ -38,6 +38,7 @@ class Page extends React.Component {
 
     handleNewSubmit = (evt, eventDate) => {
         evt.preventDefault()
+        console.log("hi from new submit")
         fetch("http://localhost:3000/events", {
             method: "POST",
             headers: {
@@ -59,34 +60,34 @@ class Page extends React.Component {
         })
       }
     
-    updateEvent = (eventToUpdate) => {
-        this.setState({
-            formType: 'update',
-            name: eventToUpdate.name,
-            date: eventToUpdate.date,
-            event: eventToUpdate
-        })
-    }
+    // updateEvent = (eventToUpdate) => {
+    //     this.setState({
+    //         formType: 'update',
+    //         name: eventToUpdate.name,
+    //         // date: eventToUpdate.date,
+    //         event: eventToUpdate
+    //     })
+    // }
 
-    handleUpdateSubmit = (evt) => {
-        evt.preventDefault()
-        fetch(`http://localhost:3000/events/${this.state.event.id}`, {
-            method: "PATCH",
-            headers: {
-                'content-type': 'application/json',
-                'accepts': 'application/json'
-            },
-            body: JSON.stringify({
-                name: this.state.name,
-                date: this.state.date,
-                page_id: this.state.page_id
-            })
-        })
-        .then(r => r.json())
-        .then((updatedEvent) => {
-          this.props.updateEvent(updatedEvent)  
-        })
-    }
+    // handleUpdateSubmit = (evt, eventDate) => {
+    //     evt.preventDefault()
+    //     fetch(`http://localhost:3000/events/${this.state.event.id}`, {
+    //         method: "PATCH",
+    //         headers: {
+    //             'content-type': 'application/json',
+    //             'accepts': 'application/json'
+    //         },
+    //         body: JSON.stringify({
+    //             name: this.state.name,
+    //             date: eventDate,
+    //             page_id: this.state.page_id
+    //         })
+    //     })
+    //     .then(r => r.json())
+    //     .then((updatedEvent) => {
+    //       this.props.updateEvent(updatedEvent)  
+    //     })
+    // }
 
     
     //other methods
@@ -125,7 +126,7 @@ class Page extends React.Component {
                 <div>
                     {this.props.page.month}
                     <Title>Events:</Title>
-                    <Month page={this.props.page} events={this.props.events} handleNewSubmit={this.handleNewSubmit} handleEventNameChange={this.handleEventNameChange} deleteEvent={this.deleteEvent}/>
+                    <Month page={this.props.page} events={this.props.events} handleNewSubmit={this.handleNewSubmit} handleEventNameChange={this.handleEventNameChange} deleteEvent={this.deleteEvent} formType={this.state.formType}/>
                     {/* <PageText>
                         {this.props.events.map(event => <Event key={event.id} event={event} deleteEvent={this.deleteEvent} updateEvent={this.updateEvent}/>)}
                     </PageText>

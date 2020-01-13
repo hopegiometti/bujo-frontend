@@ -9,6 +9,7 @@ class EventForm extends React.Component {
         page_id: this.props.page.id
     }
 
+
     // handleSubmit = (evt) => {
     //     evt.preventDefault()
     //     console.log(this.state);
@@ -39,17 +40,33 @@ class EventForm extends React.Component {
     render() {
         console.log(this.props)
         return(<div>
-            <form onSubmit={(evt) => this.props.handleNewSubmit(evt, this.props.date)}>
-                        <input
-                            onChange={this.props.handleEventNameChange}
-                            type="text"
-                            name="name"
-                            value={this.props.name}
-                            placeholder="new event"
-                        />
+            { this.props.event ? 
+            <>
+                <form onSubmit={(evt) => this.props.handleUpdateSubmit(evt, this.props.date)}>
+                            <input
+                                onChange={this.props.handleEventNameChange}
+                                type="text"
+                                name="name"
+                                value={this.props.name}
+                                placeholder={this.props.event.name}
+                            />
+                        <input type="submit" value="Submit"/>
+                </form> 
+            </>
+            :
+            <>
+                <form onSubmit={(evt) => this.props.handleNewSubmit(evt, this.props.date)}>
+                    <input
+                        onChange={this.props.handleEventNameChange}
+                        type="text"
+                        name="name"
+                        value={this.props.name}
+                        placeholder="new event"
+                    />
                     <input type="submit" value="Submit"/>
-            </form>    
-        
+                </form>
+            </>
+            }
 
             {/* { this.props.type === 'new' ? 
                 <div>
