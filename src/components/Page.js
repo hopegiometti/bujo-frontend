@@ -5,6 +5,7 @@ import EventForm from './EventForm'
 import Month from './Month'
 //styling
 import styled from 'styled-components';
+import Container from '@material-ui/core/Container';
 //redux
 import { connect } from 'react-redux'
 import { setEvents } from '../redux/actions'
@@ -124,9 +125,9 @@ class Page extends React.Component {
         return(<div>
             { this.props.page.month ? 
                 <div>
-                    {this.props.page.month}
+                    {this.props.page.month} - {this.props.page.layout}
                     <Title>Events:</Title>
-                    <Month page={this.props.page} events={this.props.events} handleNewSubmit={this.handleNewSubmit} handleEventNameChange={this.handleEventNameChange} deleteEvent={this.deleteEvent} formType={this.state.formType}/>
+                        <Month page={this.props.page} events={this.props.events} handleNewSubmit={this.handleNewSubmit} handleEventNameChange={this.handleEventNameChange} deleteEvent={this.deleteEvent} formType={this.state.formType}/>
                 </div>
             : null}
            

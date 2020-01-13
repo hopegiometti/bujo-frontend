@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components';
 
+
 class Event extends React.Component {
     render() {
         
@@ -18,14 +19,14 @@ class Event extends React.Component {
         `;
 
         console.log("hi from event!", this.props.event.name)
-        return(<div>
+        return(<>
             <EventInfo onClick={() => this.props.updateEvent(this.props.event, this.props.event.date)}>
-             {this.props.event.date} {this.props.event.name}
+             {this.props.event.name}
             </EventInfo>
             <DeleteButton onClick={()=> this.props.deleteEvent(this.props.event)}>
                 X
             </DeleteButton>
-        </div>)
+        </>)
     }
 }
 

@@ -4,6 +4,13 @@ import EventForm from './EventForm'
 import { connect } from 'react-redux'
 import { updateEvent } from '../redux/actions'
 import { addEvent } from '../redux/actions'
+import styled from 'styled-components';
+import { flexbox } from '@material-ui/system';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import Paper from '@material-ui/core/Paper';
+import { makeStyles } from '@material-ui/core';
+
 
 class DateComponent extends React.Component {
     state={
@@ -27,7 +34,7 @@ class DateComponent extends React.Component {
         console.log(evt.target.name, evt.target.value)
         this.setState({
             [evt.target.name]: evt.target.value
-        })}
+    })}
 
     updateEvent = (eventToUpdate) => {
         
@@ -91,24 +98,28 @@ class DateComponent extends React.Component {
 
 
     renderEvents = () => {
-        console.log(this.props.date)
+        // const FormStyle = styled.form`
+        //     display: inline-block;
+        // `;
+
+        console.log(this.props.date, this.state)
         // if (this.props.event) {
             if (this.props.event[0]) {
                 if (this.state.updateEvent) {
                     console.log("hi")
-                    return( <div>
+                    return(<div>
                         {this.props.date} - <EventForm date={this.props.date} handleEventNameChange={this.handleEventNameChange} handleUpdateSubmit={this.handleUpdateSubmit} event={this.state.event}/>
-                    </div> )
+                    </div>)
                 } else {
-                    return( <div>
+                    return(<div>
                         {this.props.date} - <Event event={this.props.event[0]} deleteEvent={this.props.deleteEvent} updateEvent={this.updateEvent}/>
-                    </div> )
+                    </div>)
                 }
             // } 
         } else {
-            return( <div>
+            return(<div>
                 {this.props.date} - <EventForm date={this.props.date} handleNewSubmit={this.handleNewSubmit} handleEventNameChange={this.handleEventNameChange} />
-            </div> )
+            </div>)
         }  
 }
 

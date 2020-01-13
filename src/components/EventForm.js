@@ -1,15 +1,11 @@
 import React from 'react'
+//redux
 import { connect } from 'react-redux'
 import { addEvent } from '../redux/actions'
+//styling
+import styled from 'styled-components';
 
 class EventForm extends React.Component {
-    state={
-        name: '',
-        date: this.props.date,
-        page_id: this.props.page.id
-    }
-
-
     // handleSubmit = (evt) => {
     //     evt.preventDefault()
     //     console.log(this.state);
@@ -38,6 +34,8 @@ class EventForm extends React.Component {
     // })}
 
     render() {
+
+        
         console.log(this.props)
         return(<div>
             { this.props.event ? 

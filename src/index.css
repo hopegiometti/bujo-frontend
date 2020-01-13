@@ -12,3 +12,8 @@ code {
     monospace;
 }
 
+.containerOne {
+  display: 'grid';
+  grid-template-columns: 'repeat(12, 1fr)';
+  grid-gap: spacing(3);
+}

@@ -14,6 +14,11 @@ import { addPage } from '../redux/actions'
 import { deletePage } from '../redux/actions'
 //styling
 import styled from 'styled-components';
+import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+import Box from '@material-ui/core/Box';
+import { borders } from '@material-ui/system';
+import { flexbox } from '@material-ui/system';
 
 
 class mainContainer extends React.Component {
@@ -124,37 +129,49 @@ class mainContainer extends React.Component {
         // console.log(this.props, this.state)
         const Title = styled.h1`
             font-size: 1.5em;
-            text-align: center;
+            text-align: left;
             color: palevioletred;
         `;
 
         const Journal = styled.div`
-            width: 600px;
-            height: 600px;
+            width: 80%;
+            height: 80%;
             padding: 10px;
             border: 5px solid gray;
             margin: auto;
+            font-size: 30%;
         `
         const IndexStyle = styled.div`
-            width: 200px;
-            height: 300px;
-            padding: 10px;
-            border: 5px solid gray;
+            width: 20%;
             float: left;
         `
+        const MenuToggle = styled.input`
+            display: none;
+        `;
 
+        const NavbarHeader = styled.div`
+            position: relative;
+            top: 0;
+            left: 0;
+            padding-top: 60px;
+            width: 100%;
+            overflow-y: scroll;
+            text-align: center;
+            -webkit-transition: opacity 300ms ease-in, visibility 0s ease-in 300ms;
+            transition: opacity 300ms ease-in, visibility 0s ease-in 300ms;
+        `;
 
         // console.log(this.props)
         return(
             <div>
                 <Title>{this.props.hello} {this.props.user.name}</Title>
                 <IndexStyle>
-                    <IndexBar pages={this.props.pages} handleNavClick={this.handleNavClick} togglePageForm={this.togglePageForm} deletePage={this.deletePage}/>
+                    <MenuToggle />
+                    <NavbarHeader>
+                            <IndexBar pages={this.props.pages} handleNavClick={this.handleNavClick} togglePageForm={this.togglePageForm} deletePage={this.deletePage}/>
+                    </NavbarHeader>
                 </IndexStyle>
-                <Journal>
-                    {/* <JournalContainer journal={this.props.journal} page={this.props.page} events={this.props.events}/> */}
-                    {this.state.showPageForm ? <PageForm togglePageForm={this.togglePageForm} newPageSubmit={this.newPageSubmit} handlePageFormMonthChange={this.handlePageFormMonthChange} handlePageFormLayoutChange={this.handlePageFormLayoutChange} pageMonth={this.state.pageMonth} pageLayout={this.state.pageLayout}/> : <JournalContainer journal={this.props.journal} page={this.props.page} events={this.props.events} />}
-                </Journal>
+                {this.state.showPageForm ? <PageForm togglePageForm={this.togglePageForm} newPageSubmit={this.newPageSubmit} handlePageFormMonthChange={this.handlePageFormMonthChange} handlePageFormLayoutChange={this.handlePageFormLayoutChange} pageMonth={this.state.pageMonth} pageLayout={this.state.pageLayout}/> : <JournalContainer journal={this.props.journal} page={this.props.page} events={this.props.events} />}
             </div>
         )
     }

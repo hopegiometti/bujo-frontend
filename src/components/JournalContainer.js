@@ -1,6 +1,8 @@
 import React from 'react'
 //components
 import Page from './Page'
+//styling
+
 
 class JournalContainer extends React.Component {
     
@@ -8,8 +10,7 @@ class JournalContainer extends React.Component {
         // console.log(this.props)
         return(<div>
             This is Your {this.props.journal.year} Journal!
-            <Page page={this.props.page} events={this.props.events} handleNewSubmit={this.props.handleNewSubmit}/>
-            {/* {this.props.pages.map(page => <Page page={page} key={page.id} />)} */}
+                <Page page={this.props.page} events={this.props.events} handleNewSubmit={this.props.handleNewSubmit}/>
         </div>)
     }
 }
