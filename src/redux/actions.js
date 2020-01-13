@@ -60,3 +60,10 @@ export const addPage = (newPage) => {
     payload: newPage
   }
 }
+
+export const deletePage = (pageToDelete) => {
+  return {
+    type: "DELETE_PAGE",
+    payload: pageToDelete
+  }
+}

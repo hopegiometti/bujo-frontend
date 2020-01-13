@@ -17,7 +17,7 @@ class IndexBar extends React.Component {
         `;
 
         return(<div>
-            {this.props.pages.map(page => <IndexItem key={page.id} page={page} handleNavClick={this.props.handleNavClick}/>)}
+            {this.props.pages.map(page => <IndexItem key={page.id} page={page} handleNavClick={this.props.handleNavClick} deletePage={this.props.deletePage}/>)}
             <AddButton onClick={this.props.togglePageForm}>
                 +
             </AddButton>

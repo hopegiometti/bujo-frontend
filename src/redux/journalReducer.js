@@ -61,6 +61,12 @@ const journalReducer = (state = initialState , action) => {
                 pages: [...state.pages, action.payload],
                 page: action.payload
             }
+        case 'DELETE_PAGE':
+            let filteredPages = state.pages.filter(page => page.id !== action.payload)
+            return {
+                ...state,
+                pages: filteredPages
+            }
         default: 
             return state
     }

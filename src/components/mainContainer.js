@@ -11,6 +11,7 @@ import { setPages } from '../redux/actions'
 import { setEvents } from '../redux/actions'
 import { setPage } from '../redux/actions'
 import { addPage } from '../redux/actions'
+import { deletePage } from '../redux/actions'
 //styling
 import styled from 'styled-components';
 
@@ -105,6 +106,18 @@ class mainContainer extends React.Component {
             })
         })
     }
+
+    //delete page
+    deletePage = (pageToDelete) => {
+        // console.log("clicked")
+        fetch(`http://localhost:3000/pages/${pageToDelete.id}`, {
+            method: "DELETE"
+        })
+        .then(r => r.json())
+        .then((msg) => {
+            this.props.deletePage(msg.data.id)
+        })
+    }
     
 
     render() {
@@ -136,7 +149,7 @@ class mainContainer extends React.Component {
             <div>
                 <Title>{this.props.hello} {this.props.user.name}</Title>
                 <IndexStyle>
-                    <IndexBar pages={this.props.pages} handleNavClick={this.handleNavClick} togglePageForm={this.togglePageForm}/>
+                    <IndexBar pages={this.props.pages} handleNavClick={this.handleNavClick} togglePageForm={this.togglePageForm} deletePage={this.deletePage}/>
                 </IndexStyle>
                 <Journal>
                     {/* <JournalContainer journal={this.props.journal} page={this.props.page} events={this.props.events}/> */}
@@ -165,4 +178,4 @@ const mapStateToProps = (state) => {
 //     }
 // }
 
-export default connect(mapStateToProps, { setUser, setJournal, setPages, setPage, setEvents, addPage })(mainContainer)
+export default connect(mapStateToProps, { setUser, setJournal, setPages, setPage, setEvents, addPage, deletePage })(mainContainer)
