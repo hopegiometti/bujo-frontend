@@ -118,7 +118,6 @@ class DateComponent extends React.Component {
             // } 
         } else {
             return(<div>
-                
                     {this.props.date} - <EventForm date={this.props.date} handleNewSubmit={this.handleNewSubmit} handleEventNameChange={this.handleEventNameChange} />
             </div>)
         }  

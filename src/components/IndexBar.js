@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
+import Collapsible from 'react-collapsible';
 
 class IndexBar extends React.Component {
     renderIndexItems = (month) => {
@@ -33,9 +34,6 @@ class IndexBar extends React.Component {
             font-size: 1em;
             border: 2px solid palevioletred;
             border-radius: 3px;
-            position: relative;
-                bottom: -220px;
-                right: -70px;
         `;
 
         const MenuLI = styled.li`
@@ -54,19 +52,14 @@ class IndexBar extends React.Component {
             <MenuLI>
                 {pageMonths.map(month => 
                 <>
-                
-                        <div key={month}>
-                            {month}
-                            {this.renderIndexItems(month)}
-                            {/* <div>{this.renderIndexItems(month)}</div> */}
-                        </div>
-                    {/* </Paper>
-                </Container> */}
+                    <Collapsible trigger={month} transitionTime={100}>
+                        {this.renderIndexItems(month)}
+                    </Collapsible>
                 </>)}
                 {/* {this.props.pages.map(page => <IndexItem key={page.id} page={page} handleNavClick={this.props.handleNavClick} deletePage={this.props.deletePage}/>)} */}
-                <Button onClick={this.props.togglePageForm} variant="contained" color="primary">
-                    +
-                </Button>
+                <AddButton onClick={this.props.togglePageForm} variant="contained" color="primary">
+                    add page
+                </AddButton>
             </MenuLI>
         </div>)
     }

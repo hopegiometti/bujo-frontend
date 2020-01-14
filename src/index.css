@@ -17,3 +17,8 @@ code {
   grid-template-columns: 'repeat(12, 1fr)';
   grid-gap: spacing(3);
 }
+
+.Collapsible {
+  text-align: left;
+  text-indent: 5%; 
+}
