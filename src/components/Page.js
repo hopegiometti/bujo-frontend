@@ -27,13 +27,6 @@ class Page extends React.Component {
         layout: this.props.page.layout
     }
 
-    //lifecycle
-    componentDidMount() {
-        // console.log(this.props, this.props.page.events)
-        // this.props.setEvents(this.props.page.events)
-
-    }
-
     //form methods
     handleEventNameChange = (evt) => {
         this.setState({

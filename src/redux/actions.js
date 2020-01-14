@@ -74,3 +74,10 @@ export const updatePage = (pageToUpdate) => {
     payload: pageToUpdate
   }
 }
+
+export const getUsers = (allUsers) => {
+  return {
+    type: "GET_USERS",
+    payload: allUsers
+  }
+}

@@ -4,7 +4,8 @@ const initialState = {
     journal: {},
     pages: [],
     events: [],
-    page: {}
+    page: {},
+    users: []
 }
 
 const journalReducer = (state = initialState , action) => {
@@ -71,6 +72,11 @@ const journalReducer = (state = initialState , action) => {
             return {
                 ...state,
                 pages: pagesWithUpdatedPage
+            }
+        case 'GET_USERS':
+            return {
+                ...state,
+                users: action.payload
             }
         default: 
             return state

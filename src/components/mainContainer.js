@@ -3,6 +3,7 @@ import React from 'react'
 import JournalContainer from './JournalContainer'
 import IndexBar from './IndexBar'
 import PageForm from './PageForm'
+import TopNavBar from './TopNavBar'
 //redux
 import { connect } from 'react-redux'
 import { setUser } from '../redux/actions'
@@ -13,6 +14,7 @@ import { setPage } from '../redux/actions'
 import { addPage } from '../redux/actions'
 import { deletePage } from '../redux/actions'
 import { updatePage } from '../redux/actions'
+import { getUsers } from '../redux/actions'
 //styling
 import styled from 'styled-components';
 import Container from '@material-ui/core/Container';
@@ -34,7 +36,7 @@ class mainContainer extends React.Component {
 
     //lifecycle
     componentDidMount() {
-        fetch("http://localhost:3000/users/3")
+        fetch(`http://localhost:3000/users/3`)
         .then(r => r.json())
         .then((hope) => {
             this.props.setUser(hope)
@@ -50,6 +52,12 @@ class mainContainer extends React.Component {
         .then(r => r.json())
         .then((pages) => {
             this.props.setPages(pages)
+        })
+
+        fetch("http://localhost:3000/users")
+        .then(r => r.json())
+        .then((allUsers) => {
+            this.props.getUsers(allUsers)
         })
     }
     
@@ -83,11 +91,17 @@ class mainContainer extends React.Component {
         } else {
             if (this.state.showPageForm === false) {
                 this.setState({
-                    showPageForm: true, 
+                    showPageForm: true,
+                    pageLayout: '',
+                    updatePage: {},
+                    updateForm: false 
                 })
             } else {
                 this.setState({
-                    showPageForm: false
+                    showPageForm: false,
+                    pageLayout: '',
+                    updatePage: {},
+                    updateForm: false
                 })
             }
         }
@@ -102,7 +116,6 @@ class mainContainer extends React.Component {
     }
 
     handlePageFormLayoutChange = (evt) => {
-        console.log(evt.target.value)
         this.setState({
             pageLayout: evt.target.value
         })
@@ -133,7 +146,6 @@ class mainContainer extends React.Component {
 
     updatePageSubmit = (evt) => {
         evt.preventDefault()
-        console.log(this.state.pageLayout)
         fetch(`http://localhost:3000/pages/${this.state.updatePage.id}`, {
             method: "PATCH",
             headers: {
@@ -211,6 +223,7 @@ class mainContainer extends React.Component {
             transition: opacity 300ms ease-in, visibility 0s ease-in 300ms;
         `;
 
+        console.log(this.props.users)
         return(
             <div>
                 <Title>{this.props.hello} {this.props.user.name}</Title>
@@ -224,7 +237,6 @@ class mainContainer extends React.Component {
                         </Container>
                     </NavbarHeader>
                 </IndexStyle>
-                    {/* {this.state.showPageForm ? <PageForm togglePageForm={this.togglePageForm} newPageSubmit={this.newPageSubmit} handlePageFormMonthChange={this.handlePageFormMonthChange} handlePageFormLayoutChange={this.handlePageFormLayoutChange} pageMonth={this.state.pageMonth} pageLayout={this.state.pageLayout}/> : <JournalContainer journal={this.props.journal} page={this.props.page} events={this.props.events} togglePageForm={this.togglePageForm}/>} */}
                     {this.state.showPageForm ? this.renderPageForm() : <JournalContainer journal={this.props.journal} page={this.props.page} events={this.props.events} togglePageForm={this.togglePageForm}/>}
             </div>
         )
@@ -238,7 +250,8 @@ const mapStateToProps = (state) => {
         journal: state.journal,
         pages: state.pages,
         page: state.page,
-        events: state.events
+        events: state.events,
+        users: state.users
     }
 }
 
@@ -248,4 +261,4 @@ const mapStateToProps = (state) => {
 //     }
 // }
 
-export default connect(mapStateToProps, { setUser, setJournal, setPages, setPage, setEvents, addPage, deletePage, updatePage })(mainContainer)
+export default connect(mapStateToProps, { setUser, setJournal, setPages, setPage, setEvents, addPage, deletePage, updatePage, getUsers })(mainContainer)

@@ -41,7 +41,6 @@ class Month extends React.Component {
         if (this.props.page.month === "September" || this.props.page.month === "April" || this.props.page.month === "June" || this.props.page.month === "November") {
             for (let i = 16; i <= 30; i++) {
                 let eventForSpecificDate = this.props.events.filter(event => event.date === i)
-                // console.log(eventForSpecificDate)
                 if (eventForSpecificDate) {
                     dates.push(<GridListTile><BorderedDate><DateComponent date={i} key={i}  event={eventForSpecificDate} handleEventNameChange={this.props.handleEventNameChange} deleteEvent={this.props.deleteEvent} handleUpdateSubmit={this.props.handleUpdateSubmit} updateEvent={this.props.updateEvent} formType={this.props.formType}/></BorderedDate></GridListTile>)
                 } else {
@@ -51,7 +50,6 @@ class Month extends React.Component {
         } else if (this.props.page.month === "February") {
             for (let i = 16; i <= 29; i++) {
                 let eventForSpecificDate = this.props.events.filter(event => event.date === i)
-                // console.log(eventForSpecificDate)
                 if (eventForSpecificDate) {
                     dates.push(<GridListTile><BorderedDate><DateComponent date={i} key={i} event={eventForSpecificDate} handleEventNameChange={this.props.handleEventNameChange} deleteEvent={this.props.deleteEvent} handleUpdateSubmit={this.props.handleUpdateSubmit} updateEvent={this.props.updateEvent} formType={this.props.formType}/></BorderedDate></GridListTile>)
                 } else {
@@ -61,7 +59,6 @@ class Month extends React.Component {
         } else {
             for (let i = 16; i <= 31; i++) {
                 let eventForSpecificDate = this.props.events.filter(event => event.date === i)
-                // console.log(eventForSpecificDate)
                 if (eventForSpecificDate) {
                     dates.push(<GridListTile><BorderedDate><DateComponent date={i} key={i} event={eventForSpecificDate} handleEventNameChange={this.props.handleEventNameChange} deleteEvent={this.props.deleteEvent} handleUpdateSubmit={this.props.handleUpdateSubmit} updateEvent={this.props.updateEvent} formType={this.props.formType}/></BorderedDate></GridListTile>)
                 } else {
