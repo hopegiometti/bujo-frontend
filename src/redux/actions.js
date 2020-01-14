@@ -67,3 +67,17 @@ export const deletePage = (pageToDelete) => {
     payload: pageToDelete
   }
 }
+
+export const updatePage = (pageToUpdate) => {
+  return {
+    type: "UPDATE_PAGE",
+    payload: pageToUpdate
+  }
+}
+
+export const getUsers = (allUsers) => {
+  return {
+    type: "GET_USERS",
+    payload: allUsers
+  }
+}

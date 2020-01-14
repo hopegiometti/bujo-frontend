@@ -7,6 +7,7 @@ import Month from './Month'
 import styled from 'styled-components';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
+import SettingsOutlinedIcon from '@material-ui/icons/Settings';
 //redux
 import { connect } from 'react-redux'
 import { setEvents } from '../redux/actions'
@@ -26,13 +27,6 @@ class Page extends React.Component {
         layout: this.props.page.layout
     }
 
-    //lifecycle
-    componentDidMount() {
-        // console.log(this.props, this.props.page.events)
-        // this.props.setEvents(this.props.page.events)
-
-    }
-
     //form methods
     handleEventNameChange = (evt) => {
         this.setState({
@@ -41,7 +35,6 @@ class Page extends React.Component {
 
     handleNewSubmit = (evt, eventDate) => {
         evt.preventDefault()
-        console.log("hi from new submit")
         fetch("http://localhost:3000/events", {
             method: "POST",
             headers: {
@@ -63,39 +56,9 @@ class Page extends React.Component {
         })
       }
     
-    // updateEvent = (eventToUpdate) => {
-    //     this.setState({
-    //         formType: 'update',
-    //         name: eventToUpdate.name,
-    //         // date: eventToUpdate.date,
-    //         event: eventToUpdate
-    //     })
-    // }
-
-    // handleUpdateSubmit = (evt, eventDate) => {
-    //     evt.preventDefault()
-    //     fetch(`http://localhost:3000/events/${this.state.event.id}`, {
-    //         method: "PATCH",
-    //         headers: {
-    //             'content-type': 'application/json',
-    //             'accepts': 'application/json'
-    //         },
-    //         body: JSON.stringify({
-    //             name: this.state.name,
-    //             date: eventDate,
-    //             page_id: this.state.page_id
-    //         })
-    //     })
-    //     .then(r => r.json())
-    //     .then((updatedEvent) => {
-    //       this.props.updateEvent(updatedEvent)  
-    //     })
-    // }
-
     
     //other methods
     deleteEvent = (eventToDelete) => {
-        // console.log("clicked")
         fetch(`http://localhost:3000/events/${eventToDelete.id}`, {
             method: "DELETE"
         })
@@ -108,7 +71,6 @@ class Page extends React.Component {
     
     //render (duh)
     render() {
-        console.log(this.props, this.props.events)
 
         //styled components
         const Title = styled.h3`
@@ -120,18 +82,21 @@ class Page extends React.Component {
             font-size: 1em;
             text-align: left;
             color: palevioletred;
-        `
-
+        `;
+        const SettingsSpan = styled.span`
+            float: right;
+            color: palevioletred;
+        `;
         
 
         
-        console.log("hi from 123",this.props.events)
         return(<div>
             { this.props.page.month ? 
                 <div>
                     {this.props.page.month} - {this.props.page.layout}
                     <Container maxWidth="md">
                         <Paper elevation={3} style={{ padding: 0, margin: 0}}>
+                        <SettingsSpan onClick={(evt) => this.props.togglePageForm(evt, this.props.page)}><SettingsOutlinedIcon /></SettingsSpan>
                             <Title>Events:</Title>
                                     <Month page={this.props.page} events={this.props.events} handleNewSubmit={this.handleNewSubmit} handleEventNameChange={this.handleEventNameChange} deleteEvent={this.deleteEvent} formType={this.state.formType}/>
                             </Paper>
@@ -142,11 +107,5 @@ class Page extends React.Component {
         </div>)
     }
 }
-
-// const mapStateToProps = (state) => {
-//     return {
-//         events: state.events
-//     }
-// }
 
 export default connect(null, { deleteEvent, addEvent, updateEvent, setEvents } )(Page)

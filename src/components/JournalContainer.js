@@ -8,10 +8,9 @@ import Paper from '@material-ui/core/Paper';
 class JournalContainer extends React.Component {
     
     render() {
-        // console.log(this.props)
         return(<div>
             This is Your {this.props.journal.year} Journal!
-                <Page page={this.props.page} events={this.props.events} handleNewSubmit={this.props.handleNewSubmit}/>
+                <Page togglePageForm={this.props.togglePageForm} page={this.props.page} events={this.props.events} handleNewSubmit={this.props.handleNewSubmit}/>
         </div>)
     }
 }

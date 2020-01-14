@@ -5,7 +5,8 @@ import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container';
 
 class PageForm extends React.Component {
-    render() {
+
+    renderNewPageForm = () => {
         const DeleteButton = styled.button`
             color: palevioletred;
             font-size: 1em;
@@ -14,10 +15,8 @@ class PageForm extends React.Component {
             float: right;
         `;
 
-        return(<div>
-            <Container maxWidth="xs">
-            <Paper elevation={3} style={{ padding: 0, margin: 0}}>
-            New Page:
+        return(<>
+        New Page:
             <DeleteButton onClick={this.props.togglePageForm}>
                 X
             </DeleteButton>
@@ -49,7 +48,47 @@ class PageForm extends React.Component {
                     </div>
                     <input type="submit" value="Submit"/>
             </form>
-            </Paper>
+        </>)
+    }
+
+    renderUpdatePageForm = () => {
+        const DeleteButton = styled.button`
+            color: palevioletred;
+            font-size: 1em;
+            border: 2px solid palevioletred;
+            border-radius: 3px;
+            float: right;
+        `;
+
+        return (<>
+            Update Page:
+            <DeleteButton onClick={this.props.togglePageForm}>
+                X
+            </DeleteButton>
+            <form onSubmit={this.props.updatePageSubmit}>
+                <label>Month:</label> {this.props.pageMonth}
+                    <div>
+                        <label>Layout:</label>
+                        <select value={this.props.pageLayout} onChange={this.props.handlePageFormLayoutChange}>
+                            <option disabled value="" >Select</option>
+                            <option value="Monthly Log">Monthly Log</option>
+                            <option value="Weekly Log">Weekly Log</option>
+                            <option value="Habit Tracker">Habit Tracker</option>
+                        </select>
+                    </div>
+                    <input type="submit" value="Submit"/>
+            </form>
+        </>)
+    }
+
+    render() {
+
+        return(<div>
+            <Container maxWidth="xs">
+                <Paper elevation={3} style={{ padding: 0, margin: 0}}>
+            
+                    {this.props.updateForm ? this.renderUpdatePageForm() : this.renderNewPageForm() }
+                </Paper>
             </Container>
         </div>)
     }

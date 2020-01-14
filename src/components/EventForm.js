@@ -6,32 +6,6 @@ import { addEvent } from '../redux/actions'
 import styled from 'styled-components';
 
 class EventForm extends React.Component {
-    // handleSubmit = (evt) => {
-    //     evt.preventDefault()
-    //     console.log(this.state);
-    //     fetch("http://localhost:3000/events", {
-    //         method: "POST",
-    //         headers: {
-    //             'content-type': 'application/json',
-    //             'accepts': 'application/json'
-    //         },
-    //         body: JSON.stringify({
-    //             name: this.state.name,
-    //             date: this.state.date,
-    //             page_id: this.state.page_id
-    //         })
-    //     })
-    //     .then(r => r.json())
-    //     .then((newEvent) => {
-    //         console.log(newEvent)
-    //         this.props.addEvent(newEvent)
-    //     })
-    //   }
-    
-    // handleChange = (evt) => {
-    // this.setState({
-    //     [evt.target.name]: evt.target.value
-    // })}
 
     render() {
         const Input = styled.input`
@@ -43,7 +17,7 @@ class EventForm extends React.Component {
             border-radius: 3px;
         `;
         
-        console.log(this.props)
+        
         return(<div>
             { this.props.event ? 
             <>
@@ -127,7 +101,6 @@ class EventForm extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    // console.log(state)
     return {
         page: state.page,
     }

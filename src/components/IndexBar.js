@@ -6,37 +6,67 @@ import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
 import Container from '@material-ui/core/Container';
 import Paper from '@material-ui/core/Paper';
+import Collapsible from 'react-collapsible';
 
 class IndexBar extends React.Component {
+    state={
+        hover: false
+    }
+
+    toggleHover = () => {
+        if (this.state.hover) {
+            this.setState({
+                hover: false
+            })
+        } else {
+            this.setState({
+                hover: true
+            })
+        }
+    }
+
+    renderButton = () => {
+        const AddButtonHover = styled.button`
+            color: white;
+            font-size: 1em;
+            border: 2px solid palevioletred;
+            border-radius: 3px;
+            background-color: palevioletred;
+        `;
+
+        const AddButton = styled.button`
+            color: palevioletred;
+            font-size: 1em;
+            border: 2px solid palevioletred;
+            border-radius: 3px;
+        `;
+
+
+        if (this.state.hover) {
+           return <AddButtonHover onClick={this.props.togglePageForm} variant="contained" color="primary">
+                add page
+            </AddButtonHover>
+        } else {
+           return <AddButton onClick={this.props.togglePageForm} variant="contained" color="primary">
+                add page
+            </AddButton>
+        }
+    }
+
+
     renderIndexItems = (month) => {
         let pagesForThatMonth = []
 
         this.props.pages.map((page) => {
             if (page.month === month) {
                 pagesForThatMonth.push(<IndexItem key={page.id} page={page} handleNavClick={this.props.handleNavClick} deletePage={this.props.deletePage}/>)
-                console.log("hi", page)
-                // return <IndexItem key={page.id} page={page} handleNavClick={this.props.handleNavClick} deletePage={this.props.deletePage}/>
-                // return <IndexItem key={page.id} page={page} handleNavClick={this.props.handleNavClick} deletePage={this.props.deletePage}/>
             } 
         })
-        console.log(pagesForThatMonth)
-
-        // pagesForThatMonth.forEach((page) => {
-        //     return <IndexItem key={page.id} page={page} handleNavClick={this.props.handleNavClick} deletePage={this.props.deletePage}/>
-        // })
         return pagesForThatMonth
     }
 
     render() {
-        const AddButton = styled.button`
-            color: palevioletred;
-            font-size: 1em;
-            border: 2px solid palevioletred;
-            border-radius: 3px;
-            position: relative;
-                bottom: -220px;
-                right: -70px;
-        `;
+        
 
         const MenuLI = styled.li`
             display: block;
@@ -47,26 +77,23 @@ class IndexBar extends React.Component {
             border: none;
         `;
 
-        let pageMonths = this.props.pages.map(page => page.month)
         
+
+        let pageMonths = this.props.pages.map(page => page.month)
+        let uniqueMonths = [...new Set(pageMonths)]
 
         return(<div>
             <MenuLI>
-                {pageMonths.map(month => 
+                {uniqueMonths.map(month => 
                 <>
-                
-                        <div key={month}>
-                            {month}
-                            {this.renderIndexItems(month)}
-                            {/* <div>{this.renderIndexItems(month)}</div> */}
-                        </div>
-                    {/* </Paper>
-                </Container> */}
+                    <Collapsible trigger={month} transitionTime={100}>
+                        {this.renderIndexItems(month)}
+                    </Collapsible>
                 </>)}
                 {/* {this.props.pages.map(page => <IndexItem key={page.id} page={page} handleNavClick={this.props.handleNavClick} deletePage={this.props.deletePage}/>)} */}
-                <Button onClick={this.props.togglePageForm} variant="contained" color="primary">
-                    +
-                </Button>
+                <span onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover}>
+                    {this.renderButton()}
+                </span>
             </MenuLI>
         </div>)
     }

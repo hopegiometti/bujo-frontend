@@ -18,7 +18,8 @@ class DateComponent extends React.Component {
         updateEvent: false,
         event: {},
         page_id: this.props.page.id ,
-        date: 1
+        date: 1,
+        hover: false
     }
 
     // state={
@@ -31,27 +32,27 @@ class DateComponent extends React.Component {
     // }
 
     handleEventNameChange = (evt) => {
-        console.log(evt.target.name, evt.target.value)
+        
         this.setState({
             [evt.target.name]: evt.target.value
     })}
 
     updateEvent = (eventToUpdate) => {
         
-        console.log(this.props.date, eventToUpdate.date)
+        
         if (this.props.date === eventToUpdate.date) {
             this.setState({
                 updateEvent: true,
                 name: eventToUpdate.name,
                 // date: eventToUpdate.date,
                 event: eventToUpdate
-            }, () => console.log(this.state))
+            })
         }
     }
 
     handleUpdateSubmit = (evt, eventDate) => {
         evt.preventDefault()
-        console.log(this.state.event.id, eventDate, this.state.name)
+        
         fetch(`http://localhost:3000/events/${this.state.event.id}`, {
             method: "PATCH",
             headers: {
@@ -66,7 +67,7 @@ class DateComponent extends React.Component {
         })
         .then(r => r.json())
         .then((updatedEvent) => {
-            console.log(updatedEvent)
+            
           this.props.updateEvent(updatedEvent)
           this.setState({
               updateEvent: false
@@ -76,7 +77,7 @@ class DateComponent extends React.Component {
 
     handleNewSubmit = (evt, eventDate) => {
         evt.preventDefault()
-        console.log("hi from new submit")
+        
         fetch("http://localhost:3000/events", {
             method: "POST",
             headers: {
@@ -95,37 +96,64 @@ class DateComponent extends React.Component {
         })
     }
 
+    toggleHover = () => {
+        if (this.state.hover) {
+            this.setState({
+                hover: false
+            })
+        } else {
+            this.setState({
+                hover: true
+            })
+        }
+    }
+
 
 
     renderEvents = () => {
-        // const FormStyle = styled.form`
-        //     display: inline-block;
-        // `;
+        const NumberStyle = styled.div`
+            float: left;
+        `;
 
-        console.log(this.props.date, this.state)
+        
         // if (this.props.event) {
             if (this.props.event[0]) {
                 if (this.state.updateEvent) {
-                    console.log("hi")
-                    return(<div>
-                            {this.props.date} - <EventForm date={this.props.date} handleEventNameChange={this.handleEventNameChange} handleUpdateSubmit={this.handleUpdateSubmit} event={this.state.event}/>
+                
+                    return(<div onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover}>
+                           <NumberStyle>{this.props.date}</NumberStyle> <EventForm date={this.props.date} handleEventNameChange={this.handleEventNameChange} handleUpdateSubmit={this.handleUpdateSubmit} event={this.state.event}/>
                     </div>)
                 } else {
-                    return(<div>
-                            {this.props.date} - <Event event={this.props.event[0]} deleteEvent={this.props.deleteEvent} updateEvent={this.updateEvent}/>
+                    return(<div onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover}>
+                            <NumberStyle>{this.props.date}</NumberStyle><Event event={this.props.event[0]} deleteEvent={this.props.deleteEvent} updateEvent={this.updateEvent}/>
                     </div>)
                 }
             // } 
         } else {
-            return(<div>
-                
-                    {this.props.date} - <EventForm date={this.props.date} handleNewSubmit={this.handleNewSubmit} handleEventNameChange={this.handleEventNameChange} />
+            return(<div onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover}>
+                {this.renderNewForm()}
             </div>)
         }  
-}
+    }
+
+    renderNewForm = () => {
+        const InvisibleForm = styled.div`
+            visibility: hidden
+        `;
+
+        const NumberStyle = styled.div`
+            float: left;
+        `;
+
+
+        if (this.state.hover) {
+            return (<><NumberStyle>{this.props.date}</NumberStyle><EventForm date={this.props.date} handleNewSubmit={this.handleNewSubmit} handleEventNameChange={this.handleEventNameChange}/></>)
+        } else {
+            return (<><NumberStyle>{this.props.date}</NumberStyle><InvisibleForm><EventForm date={this.props.date} handleNewSubmit={this.handleNewSubmit} handleEventNameChange={this.handleEventNameChange}/></InvisibleForm></>)
+        }
+    }
 
     render() {
-        
         return(<div>
                 {this.renderEvents()}
         </div>)
@@ -133,7 +161,6 @@ class DateComponent extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-    // console.log(state)
     return {
         page: state.page,
     }
