@@ -6,12 +6,14 @@ import Month from './Month'
 //styling
 import styled from 'styled-components';
 import Container from '@material-ui/core/Container';
+import Paper from '@material-ui/core/Paper';
 //redux
 import { connect } from 'react-redux'
 import { setEvents } from '../redux/actions'
 import { deleteEvent } from '../redux/actions'
 import { addEvent } from '../redux/actions'
 import { updateEvent } from '../redux/actions'
+
 
 
 class Page extends React.Component {
@@ -121,13 +123,19 @@ class Page extends React.Component {
         `
 
         
+
+        
         console.log("hi from 123",this.props.events)
         return(<div>
             { this.props.page.month ? 
                 <div>
                     {this.props.page.month} - {this.props.page.layout}
-                    <Title>Events:</Title>
-                        <Month page={this.props.page} events={this.props.events} handleNewSubmit={this.handleNewSubmit} handleEventNameChange={this.handleEventNameChange} deleteEvent={this.deleteEvent} formType={this.state.formType}/>
+                    <Container maxWidth="md">
+                        <Paper elevation={3} style={{ padding: 0, margin: 0}}>
+                            <Title>Events:</Title>
+                                    <Month page={this.props.page} events={this.props.events} handleNewSubmit={this.handleNewSubmit} handleEventNameChange={this.handleEventNameChange} deleteEvent={this.deleteEvent} formType={this.state.formType}/>
+                            </Paper>
+                    </Container>
                 </div>
             : null}
            

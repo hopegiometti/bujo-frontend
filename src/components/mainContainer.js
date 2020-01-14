@@ -19,6 +19,7 @@ import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
 import { borders } from '@material-ui/system';
 import { flexbox } from '@material-ui/system';
+import Paper from '@material-ui/core/Paper';
 
 
 class mainContainer extends React.Component {
@@ -168,10 +169,14 @@ class mainContainer extends React.Component {
                 <IndexStyle>
                     <MenuToggle />
                     <NavbarHeader>
-                            <IndexBar pages={this.props.pages} handleNavClick={this.handleNavClick} togglePageForm={this.togglePageForm} deletePage={this.deletePage}/>
+                        <Container maxWidth="xs">
+                            <Paper elevation={3} style={{ padding: 0, margin: 0}}>
+                                <IndexBar pages={this.props.pages} handleNavClick={this.handleNavClick} togglePageForm={this.togglePageForm} deletePage={this.deletePage}/>
+                            </Paper>
+                        </Container>
                     </NavbarHeader>
                 </IndexStyle>
-                {this.state.showPageForm ? <PageForm togglePageForm={this.togglePageForm} newPageSubmit={this.newPageSubmit} handlePageFormMonthChange={this.handlePageFormMonthChange} handlePageFormLayoutChange={this.handlePageFormLayoutChange} pageMonth={this.state.pageMonth} pageLayout={this.state.pageLayout}/> : <JournalContainer journal={this.props.journal} page={this.props.page} events={this.props.events} />}
+                    {this.state.showPageForm ? <PageForm togglePageForm={this.togglePageForm} newPageSubmit={this.newPageSubmit} handlePageFormMonthChange={this.handlePageFormMonthChange} handlePageFormLayoutChange={this.handlePageFormLayoutChange} pageMonth={this.state.pageMonth} pageLayout={this.state.pageLayout}/> : <JournalContainer journal={this.props.journal} page={this.props.page} events={this.props.events} />}
             </div>
         )
     }

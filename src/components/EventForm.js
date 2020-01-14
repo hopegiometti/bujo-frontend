@@ -34,34 +34,41 @@ class EventForm extends React.Component {
     // })}
 
     render() {
-
+        const Input = styled.input`
+            padding: 0.5em;
+            margin: 0.5em;
+            color: palevioletred;
+            background: lightgrey;
+            border: none;
+            border-radius: 3px;
+        `;
         
         console.log(this.props)
         return(<div>
             { this.props.event ? 
             <>
                 <form onSubmit={(evt) => this.props.handleUpdateSubmit(evt, this.props.date)}>
-                            <input
+                            <Input
                                 onChange={this.props.handleEventNameChange}
                                 type="text"
                                 name="name"
                                 value={this.props.name}
                                 placeholder={this.props.event.name}
                             />
-                        <input type="submit" value="Submit"/>
+                        <Input type="submit" value="Submit"/>
                 </form> 
             </>
             :
             <>
                 <form onSubmit={(evt) => this.props.handleNewSubmit(evt, this.props.date)}>
-                    <input
+                    <Input
                         onChange={this.props.handleEventNameChange}
                         type="text"
                         name="name"
                         value={this.props.name}
                         placeholder="new event"
                     />
-                    <input type="submit" value="Submit"/>
+                    <Input type="submit" value="Submit"/>
                 </form>
             </>
             }

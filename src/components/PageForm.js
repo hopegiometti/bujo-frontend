@@ -1,6 +1,8 @@
 import React from 'react'
 //styling
 import styled from 'styled-components';
+import Paper from '@material-ui/core/Paper';
+import Container from '@material-ui/core/Container';
 
 class PageForm extends React.Component {
     render() {
@@ -9,10 +11,13 @@ class PageForm extends React.Component {
             font-size: 1em;
             border: 2px solid palevioletred;
             border-radius: 3px;
+            float: right;
         `;
 
         return(<div>
-            hi from page form!
+            <Container maxWidth="xs">
+            <Paper elevation={3} style={{ padding: 0, margin: 0}}>
+            New Page:
             <DeleteButton onClick={this.props.togglePageForm}>
                 X
             </DeleteButton>
@@ -44,6 +49,8 @@ class PageForm extends React.Component {
                     </div>
                     <input type="submit" value="Submit"/>
             </form>
+            </Paper>
+            </Container>
         </div>)
     }
 }
