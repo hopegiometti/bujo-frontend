@@ -154,7 +154,6 @@ class DateComponent extends React.Component {
     }
 
     render() {
-        console.log(this.state.hover)
         return(<div>
                 {this.renderEvents()}
         </div>)

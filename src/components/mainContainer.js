@@ -12,6 +12,7 @@ import { setEvents } from '../redux/actions'
 import { setPage } from '../redux/actions'
 import { addPage } from '../redux/actions'
 import { deletePage } from '../redux/actions'
+import { updatePage } from '../redux/actions'
 //styling
 import styled from 'styled-components';
 import Container from '@material-ui/core/Container';
@@ -26,7 +27,9 @@ class mainContainer extends React.Component {
     state={
         showPageForm: false,
         pageMonth: '',
-        pageLayout: ''
+        pageLayout: '',
+        updatePage: {},
+        updateForm: false
     }
 
     //lifecycle
@@ -61,29 +64,45 @@ class mainContainer extends React.Component {
         })
     }
 
-    togglePageForm = () => {
-        // console.log("let's add a page!")
-        if (this.state.showPageForm === false) {
-            this.setState({
-                showPageForm: true
-            })
+    togglePageForm = (evt, pageToUpdate) => {
+        if (pageToUpdate) {
+            if (this.state.showPageForm === false) {
+                this.setState({
+                    showPageForm: true,
+                    updatePage: pageToUpdate,
+                    updateForm: true,
+                    pageLayout: pageToUpdate.layout 
+                })
+            } else {
+                this.setState({
+                    showPageForm: false,
+                    updatePage: {},
+                    updateForm: false
+                })
+            }
         } else {
-            this.setState({
-                showPageForm: false
-            })
+            if (this.state.showPageForm === false) {
+                this.setState({
+                    showPageForm: true, 
+                })
+            } else {
+                this.setState({
+                    showPageForm: false
+                })
+            }
         }
+        
     }
 
     //page form
     handlePageFormMonthChange = (evt) => {
-        // console.log(evt)
         this.setState({
             pageMonth: evt.target.value
         })
     }
 
     handlePageFormLayoutChange = (evt) => {
-        // console.log(evt)
+        console.log(evt.target.value)
         this.setState({
             pageLayout: evt.target.value
         })
@@ -112,9 +131,33 @@ class mainContainer extends React.Component {
         })
     }
 
+    updatePageSubmit = (evt) => {
+        evt.preventDefault()
+        console.log(this.state.pageLayout)
+        fetch(`http://localhost:3000/pages/${this.state.updatePage.id}`, {
+            method: "PATCH",
+            headers: {
+                'content-type': 'application/json',
+                'accepts': 'application/json'
+            },
+            body: JSON.stringify({
+                month: this.state.updatePage.month,
+                layout: this.state.pageLayout,
+                journal_id: this.props.journal.id
+            })
+        })
+        .then(r => r.json())
+        .then((updatedPage) => {
+            this.props.updatePage(updatedPage)
+            this.props.setPage(updatedPage)
+            this.setState({
+                showPageForm: false
+            })
+        })
+    }
+
     //delete page
     deletePage = (pageToDelete) => {
-        // console.log("clicked")
         fetch(`http://localhost:3000/pages/${pageToDelete.id}`, {
             method: "DELETE"
         })
@@ -123,10 +166,17 @@ class mainContainer extends React.Component {
             this.props.deletePage(msg.data.id)
         })
     }
+
+    renderPageForm = () => {
+        if (this.state.updateForm) {
+            return <PageForm updateForm={this.state.updateForm} togglePageForm={this.togglePageForm} updatePageSubmit={this.updatePageSubmit} handlePageFormLayoutChange={this.handlePageFormLayoutChange} pageMonth={this.state.updatePage.month} pageLayout={this.state.pageLayout}/>
+        } else {
+            return <PageForm updateForm={this.state.updateForm} togglePageForm={this.togglePageForm} newPageSubmit={this.newPageSubmit} handlePageFormMonthChange={this.handlePageFormMonthChange} handlePageFormLayoutChange={this.handlePageFormLayoutChange} pageMonth={this.state.pageMonth} pageLayout={this.state.pageLayout}/>
+        }
+    }
     
 
     render() {
-        // console.log(this.props, this.state)
         const Title = styled.h1`
             font-size: 1.5em;
             text-align: left;
@@ -161,7 +211,6 @@ class mainContainer extends React.Component {
             transition: opacity 300ms ease-in, visibility 0s ease-in 300ms;
         `;
 
-        // console.log(this.props)
         return(
             <div>
                 <Title>{this.props.hello} {this.props.user.name}</Title>
@@ -175,14 +224,14 @@ class mainContainer extends React.Component {
                         </Container>
                     </NavbarHeader>
                 </IndexStyle>
-                    {this.state.showPageForm ? <PageForm togglePageForm={this.togglePageForm} newPageSubmit={this.newPageSubmit} handlePageFormMonthChange={this.handlePageFormMonthChange} handlePageFormLayoutChange={this.handlePageFormLayoutChange} pageMonth={this.state.pageMonth} pageLayout={this.state.pageLayout}/> : <JournalContainer journal={this.props.journal} page={this.props.page} events={this.props.events} />}
+                    {/* {this.state.showPageForm ? <PageForm togglePageForm={this.togglePageForm} newPageSubmit={this.newPageSubmit} handlePageFormMonthChange={this.handlePageFormMonthChange} handlePageFormLayoutChange={this.handlePageFormLayoutChange} pageMonth={this.state.pageMonth} pageLayout={this.state.pageLayout}/> : <JournalContainer journal={this.props.journal} page={this.props.page} events={this.props.events} togglePageForm={this.togglePageForm}/>} */}
+                    {this.state.showPageForm ? this.renderPageForm() : <JournalContainer journal={this.props.journal} page={this.props.page} events={this.props.events} togglePageForm={this.togglePageForm}/>}
             </div>
         )
     }
 }
 
 const mapStateToProps = (state) => {
-    // console.log(state)
     return {
         hello: state.hello,
         user: state.user,
@@ -199,4 +248,4 @@ const mapStateToProps = (state) => {
 //     }
 // }
 
-export default connect(mapStateToProps, { setUser, setJournal, setPages, setPage, setEvents, addPage, deletePage })(mainContainer)
+export default connect(mapStateToProps, { setUser, setJournal, setPages, setPage, setEvents, addPage, deletePage, updatePage })(mainContainer)

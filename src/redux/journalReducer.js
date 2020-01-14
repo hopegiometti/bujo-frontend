@@ -65,6 +65,13 @@ const journalReducer = (state = initialState , action) => {
                 ...state,
                 pages: filteredPages
             }
+        case 'UPDATE_PAGE': 
+            let pagesWOUpdatedPage = state.pages.filter(page => page.id !== action.payload.id)
+            let pagesWithUpdatedPage = [...pagesWOUpdatedPage, action.payload]
+            return {
+                ...state,
+                pages: pagesWithUpdatedPage
+            }
         default: 
             return state
     }

@@ -5,10 +5,12 @@ import styled from 'styled-components';
 class Event extends React.Component {
     render() {
         
-        const EventInfo = styled.span`
+        const EventInfo = styled.div`
             font-size: 1em;
-            text-align: left;
+            text-align: center;
             color: palevioletred;
+            padding-bottom: 13.5px;
+            padding-top: 13.5px;
         `;
 
         const DeleteButton = styled.button`
@@ -20,16 +22,17 @@ class Event extends React.Component {
             height: 20%;
             font-size: 20%;
             text-align: center;
+            float: right;
         `;
 
 
         return(<>
             <EventInfo onClick={() => this.props.updateEvent(this.props.event, this.props.event.date)}>
              {this.props.event.name}
-            </EventInfo>
             <DeleteButton onClick={()=> this.props.deleteEvent(this.props.event)}>
                 X
             </DeleteButton>
+            </EventInfo>
         </>)
     }
 }
