@@ -5,6 +5,24 @@ import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container';
 
 class PageForm extends React.Component {
+    state={
+        hideWeeklyOptions: true
+    }
+
+    renderWeeklyOptions = () => {
+        if (this.props.pageLayout === "Weekly Log") {
+            return(<div>
+                <label>Pick a week:</label>
+                <select value={this.props.weeklyLayoutWeek} onChange={this.props.handlePageFormWeekChange}>
+                            <option disabled value="" >Select</option>
+                            <option value="Week One">Week One</option>
+                            <option value="Week Two">Week Two</option>
+                            <option value="Week Three">Week Three</option>
+                            <option value="Week Four">Week Four</option>
+                </select>
+                </div>)
+        }
+    }
 
     renderNewPageForm = () => {
         const DeleteButton = styled.button`
@@ -45,6 +63,7 @@ class PageForm extends React.Component {
                             <option value="Weekly Log">Weekly Log</option>
                             <option value="Habit Tracker">Habit Tracker</option>
                         </select>
+                        {this.renderWeeklyOptions()}
                     </div>
                     <input type="submit" value="Submit"/>
             </form>
@@ -75,6 +94,7 @@ class PageForm extends React.Component {
                             <option value="Weekly Log">Weekly Log</option>
                             <option value="Habit Tracker">Habit Tracker</option>
                         </select>
+                        {this.renderWeeklyOptions()}
                     </div>
                     <input type="submit" value="Submit"/>
             </form>
@@ -82,11 +102,9 @@ class PageForm extends React.Component {
     }
 
     render() {
-
         return(<div>
             <Container maxWidth="xs">
-                <Paper elevation={3} style={{ padding: 0, margin: 0}}>
-            
+                <Paper elevation={3} style={{ padding: 0, margin: 0}}>           
                     {this.props.updateForm ? this.renderUpdatePageForm() : this.renderNewPageForm() }
                 </Paper>
             </Container>

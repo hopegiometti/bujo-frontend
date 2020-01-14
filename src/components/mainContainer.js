@@ -31,7 +31,9 @@ class mainContainer extends React.Component {
         pageMonth: '',
         pageLayout: '',
         updatePage: {},
-        updateForm: false
+        updateForm: false,
+        chosenUser: {},
+        weeklyLayoutWeek: ''
     }
 
     //lifecycle
@@ -121,8 +123,18 @@ class mainContainer extends React.Component {
         })
     }
 
+    handlePageFormWeekChange = (evt) => {
+        this.setState({
+            weeklyLayoutWeek: evt.target.value
+        })
+    }
+
+
     newPageSubmit = (evt) => {
         evt.preventDefault()
+
+        let layoutName = `${this.state.pageLayout} - ${this.state.weeklyLayoutWeek}`
+
         fetch("http://localhost:3000/pages", {
             method: "POST",
             headers: {
@@ -131,7 +143,7 @@ class mainContainer extends React.Component {
             },
             body: JSON.stringify({
                 month: this.state.pageMonth,
-                layout: this.state.pageLayout,
+                layout: layoutName,
                 journal_id: this.props.journal.id
             })
         })
@@ -179,11 +191,22 @@ class mainContainer extends React.Component {
         })
     }
 
+    handleUserChange = (evt) => {
+        console.log(evt.target)
+        this.setState({
+            chosenUser: evt.target.value
+        })
+    }
+
+    chooseUser = () => {
+
+    }
+
     renderPageForm = () => {
         if (this.state.updateForm) {
-            return <PageForm updateForm={this.state.updateForm} togglePageForm={this.togglePageForm} updatePageSubmit={this.updatePageSubmit} handlePageFormLayoutChange={this.handlePageFormLayoutChange} pageMonth={this.state.updatePage.month} pageLayout={this.state.pageLayout}/>
+            return <PageForm handlePageFormWeekChange={this.handlePageFormWeekChange} updateForm={this.state.updateForm} togglePageForm={this.togglePageForm} updatePageSubmit={this.updatePageSubmit} handlePageFormLayoutChange={this.handlePageFormLayoutChange} pageMonth={this.state.updatePage.month} pageLayout={this.state.pageLayout}/>
         } else {
-            return <PageForm updateForm={this.state.updateForm} togglePageForm={this.togglePageForm} newPageSubmit={this.newPageSubmit} handlePageFormMonthChange={this.handlePageFormMonthChange} handlePageFormLayoutChange={this.handlePageFormLayoutChange} pageMonth={this.state.pageMonth} pageLayout={this.state.pageLayout}/>
+            return <PageForm handlePageFormWeekChange={this.handlePageFormWeekChange} updateForm={this.state.updateForm} togglePageForm={this.togglePageForm} newPageSubmit={this.newPageSubmit} handlePageFormMonthChange={this.handlePageFormMonthChange} handlePageFormLayoutChange={this.handlePageFormLayoutChange} pageMonth={this.state.pageMonth} pageLayout={this.state.pageLayout}/>
         }
     }
     
@@ -226,6 +249,7 @@ class mainContainer extends React.Component {
         console.log(this.props.users)
         return(
             <div>
+                <TopNavBar users={this.props.users} chosenUser={this.state.chosenUser} handleUserChange={this.handleUserChange} chooseUser={this.chooseUser}/>
                 <Title>{this.props.hello} {this.props.user.name}</Title>
                 <IndexStyle>
                     <MenuToggle />

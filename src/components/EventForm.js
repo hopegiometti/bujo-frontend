@@ -12,10 +12,11 @@ class EventForm extends React.Component {
             padding: 0.5em;
             margin: 0.5em;
             color: palevioletred;
-            background: lightgrey;
+            background: white;
             border: none;
             border-radius: 3px;
         `;
+
         
         
         return(<div>
@@ -46,56 +47,6 @@ class EventForm extends React.Component {
                 </form>
             </>
             }
-
-            {/* { this.props.type === 'new' ? 
-                <div>
-                <h3>New Event</h3>
-                    <form onSubmit={this.props.handleNewSubmit}>
-                    <label>Event Name</label>
-                        <input
-                            onChange={this.props.handleChange}
-                            type="text"
-                            name="name"
-                            value={this.props.name}
-                        />
-                        <div>
-                            <label>Date:</label>
-                            <input
-                                    onChange={this.props.handleChange}
-                                    type="number"
-                                    name="date"
-                                    value={this.props.date}
-                                />
-                            <label> of {this.props.page.month}</label>
-                        </div>
-                        <input type="submit" value="Submit"/>
-                    </form>
-                </div>   
-                :
-                <div>
-                    <h3>Update Event</h3>
-                    <form onSubmit={this.props.handleUpdateSubmit}>
-                    <label>Event Name</label>
-                        <input
-                            onChange={this.props.handleChange}
-                            type="text"
-                            name="name"
-                            value={this.props.name}
-                        />
-                        <div>
-                            <label>Date:</label>
-                            <input
-                                    onChange={this.props.handleChange}
-                                    type="number"
-                                    name="date"
-                                    value={this.props.date}
-                                />
-                            <label> of {this.props.page.month}</label>
-                        </div>
-                        <input type="submit" value="Submit"/>
-                    </form>
-                </div>
-            } */}
         </div>)
     }
 }

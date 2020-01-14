@@ -3,6 +3,7 @@ import React from 'react'
 import Event from './Event'
 import EventForm from './EventForm'
 import Month from './Month'
+import Week from './Week'
 //styling
 import styled from 'styled-components';
 import Container from '@material-ui/core/Container';
@@ -54,8 +55,26 @@ class Page extends React.Component {
                 formType: 'new'
             })
         })
-      }
+    }
     
+    renderSpecificLayout = () => {
+        const Title = styled.h3`
+            font-size: 1.2em;
+            text-align: left;
+            color: palevioletred;
+        `;
+
+        if (this.props.page.layout === "Monthly Log") {
+            return (<>
+            <Title>Events:</Title>
+            <Month page={this.props.page} events={this.props.events} handleNewSubmit={this.handleNewSubmit} handleEventNameChange={this.handleEventNameChange} deleteEvent={this.deleteEvent} formType={this.state.formType}/>
+            </>)
+        } else {
+            return(<>
+                <Week />
+            </>)
+        }
+    }
     
     //other methods
     deleteEvent = (eventToDelete) => {
@@ -97,9 +116,8 @@ class Page extends React.Component {
                     <Container maxWidth="md">
                         <Paper elevation={3} style={{ padding: 0, margin: 0}}>
                         <SettingsSpan onClick={(evt) => this.props.togglePageForm(evt, this.props.page)}><SettingsOutlinedIcon /></SettingsSpan>
-                            <Title>Events:</Title>
-                                    <Month page={this.props.page} events={this.props.events} handleNewSubmit={this.handleNewSubmit} handleEventNameChange={this.handleEventNameChange} deleteEvent={this.deleteEvent} formType={this.state.formType}/>
-                            </Paper>
+                            {this.renderSpecificLayout()}
+                        </Paper>
                     </Container>
                 </div>
             : null}
