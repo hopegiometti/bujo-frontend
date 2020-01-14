@@ -108,24 +108,26 @@ class DateComponent extends React.Component {
                 if (this.state.updateEvent) {
                     console.log("hi")
                     return(<div>
-                        {this.props.date} - <EventForm date={this.props.date} handleEventNameChange={this.handleEventNameChange} handleUpdateSubmit={this.handleUpdateSubmit} event={this.state.event}/>
+                            {this.props.date} - <EventForm date={this.props.date} handleEventNameChange={this.handleEventNameChange} handleUpdateSubmit={this.handleUpdateSubmit} event={this.state.event}/>
                     </div>)
                 } else {
                     return(<div>
-                        {this.props.date} - <Event event={this.props.event[0]} deleteEvent={this.props.deleteEvent} updateEvent={this.updateEvent}/>
+                            {this.props.date} - <Event event={this.props.event[0]} deleteEvent={this.props.deleteEvent} updateEvent={this.updateEvent}/>
                     </div>)
                 }
             // } 
         } else {
             return(<div>
-                {this.props.date} - <EventForm date={this.props.date} handleNewSubmit={this.handleNewSubmit} handleEventNameChange={this.handleEventNameChange} />
+                
+                    {this.props.date} - <EventForm date={this.props.date} handleNewSubmit={this.handleNewSubmit} handleEventNameChange={this.handleEventNameChange} />
             </div>)
         }  
 }
 
     render() {
+        
         return(<div>
-            {this.renderEvents()}
+                {this.renderEvents()}
         </div>)
     }
 }

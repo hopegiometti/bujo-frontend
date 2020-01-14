@@ -4,6 +4,8 @@ import IndexItem from './IndexItem'
 //styling
 import styled from 'styled-components';
 import Button from '@material-ui/core/Button';
+import Container from '@material-ui/core/Container';
+import Paper from '@material-ui/core/Paper';
 
 class IndexBar extends React.Component {
     renderIndexItems = (month) => {
@@ -52,11 +54,14 @@ class IndexBar extends React.Component {
             <MenuLI>
                 {pageMonths.map(month => 
                 <>
-                    <div key={month}>
-                        {month}
-                        {this.renderIndexItems(month)}
-                        {/* <div>{this.renderIndexItems(month)}</div> */}
-                    </div>
+                
+                        <div key={month}>
+                            {month}
+                            {this.renderIndexItems(month)}
+                            {/* <div>{this.renderIndexItems(month)}</div> */}
+                        </div>
+                    {/* </Paper>
+                </Container> */}
                 </>)}
                 {/* {this.props.pages.map(page => <IndexItem key={page.id} page={page} handleNavClick={this.props.handleNavClick} deletePage={this.props.deletePage}/>)} */}
                 <Button onClick={this.props.togglePageForm} variant="contained" color="primary">

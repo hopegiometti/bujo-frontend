@@ -2,7 +2,8 @@ import React from 'react'
 //components
 import Page from './Page'
 //styling
-
+import Container from '@material-ui/core/Container';
+import Paper from '@material-ui/core/Paper';
 
 class JournalContainer extends React.Component {
     
