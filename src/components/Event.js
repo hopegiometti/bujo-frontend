@@ -16,9 +16,13 @@ class Event extends React.Component {
             font-size: 1em;
             border: 2px solid palevioletred;
             border-radius: 3px;
+            width: 5%;
+            height: 20%;
+            font-size: 20%;
+            text-align: center;
         `;
 
-        console.log("hi from event!", this.props.event.name)
+
         return(<>
             <EventInfo onClick={() => this.props.updateEvent(this.props.event, this.props.event.date)}>
              {this.props.event.name}

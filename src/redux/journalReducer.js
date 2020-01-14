@@ -42,8 +42,6 @@ const journalReducer = (state = initialState , action) => {
                 events: filteredEvents
             }
         case 'UPDATE_EVENT':
-            // console.log(action.payload.id)
-            console.log(action.payload)
             let filteredEventsTwo = state.events.filter(event => event.id !== action.payload.id)
             let updatedEvents = [...filteredEventsTwo, action.payload]
             return {

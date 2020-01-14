@@ -52,7 +52,6 @@ class mainContainer extends React.Component {
     
     //other methods
     handleNavClick = (pageToNavTo) => {
-        console.log(pageToNavTo)
         //fetch to grab the page and then call on these actions
         fetch(`http://localhost:3000/pages/${pageToNavTo.id}`)
         .then(r => r.json())

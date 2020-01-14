@@ -13,31 +13,39 @@ import styled from 'styled-components';
 
 
 class Month extends React.Component {
+    
     renderDatesUnderFifteen = () => {
+        const BorderedDate = styled.div`
+            border-bottom: 1px dashed lightgrey;
+        `;
+
+
         let datesUnderFifteen = []
         for (let i=1; i<=15; i++) {
             let eventForSpecificDate = this.props.events.filter(event => event.date === i)
             if (eventForSpecificDate) {
-                datesUnderFifteen.push(<GridListTile><DateComponent date={i} key={i}  event={eventForSpecificDate} handleEventNameChange={this.props.handleEventNameChange} deleteEvent={this.props.deleteEvent} handleUpdateSubmit={this.props.handleUpdateSubmit} updateEvent={this.props.updateEvent} formType={this.props.formType}/></GridListTile>)
+                datesUnderFifteen.push(<GridListTile><BorderedDate><DateComponent date={i} key={i}  event={eventForSpecificDate} handleEventNameChange={this.props.handleEventNameChange} deleteEvent={this.props.deleteEvent} handleUpdateSubmit={this.props.handleUpdateSubmit} updateEvent={this.props.updateEvent} formType={this.props.formType}/></BorderedDate></GridListTile>)
             } else {
-                datesUnderFifteen.push(<GridListTile><DateComponent date={i} key={i} handleNewSubmit={this.props.handleNewSubmit} handleEventNameChange={this.props.handleEventNameChange} formType={this.props.formType}/></GridListTile>)
+                datesUnderFifteen.push(<GridListTile><BorderedDate><DateComponent date={i} key={i} handleNewSubmit={this.props.handleNewSubmit} handleEventNameChange={this.props.handleEventNameChange} formType={this.props.formType}/></BorderedDate></GridListTile>)
             }
         }
         return datesUnderFifteen
     }
 
     renderDates = () => {
-        console.log(this.props.page.month)
+        const BorderedDate = styled.div`
+            border-bottom: 1px dashed lightgrey;
+        `;
+
         let dates = []
-        
         if (this.props.page.month === "September" || this.props.page.month === "April" || this.props.page.month === "June" || this.props.page.month === "November") {
             for (let i = 16; i <= 30; i++) {
                 let eventForSpecificDate = this.props.events.filter(event => event.date === i)
                 // console.log(eventForSpecificDate)
                 if (eventForSpecificDate) {
-                    dates.push(<GridListTile><DateComponent date={i} key={i}  event={eventForSpecificDate} handleEventNameChange={this.props.handleEventNameChange} deleteEvent={this.props.deleteEvent} handleUpdateSubmit={this.props.handleUpdateSubmit} updateEvent={this.props.updateEvent} formType={this.props.formType}/></GridListTile>)
+                    dates.push(<GridListTile><BorderedDate><DateComponent date={i} key={i}  event={eventForSpecificDate} handleEventNameChange={this.props.handleEventNameChange} deleteEvent={this.props.deleteEvent} handleUpdateSubmit={this.props.handleUpdateSubmit} updateEvent={this.props.updateEvent} formType={this.props.formType}/></BorderedDate></GridListTile>)
                 } else {
-                    dates.push(<GridListTile><DateComponent date={i} key={i} handleNewSubmit={this.props.handleNewSubmit} handleEventNameChange={this.props.handleEventNameChange} formType={this.props.formType}/></GridListTile>)
+                    dates.push(<GridListTile><BorderedDate><DateComponent date={i} key={i} handleNewSubmit={this.props.handleNewSubmit} handleEventNameChange={this.props.handleEventNameChange} formType={this.props.formType}/></BorderedDate></GridListTile>)
                 }
             }
         } else if (this.props.page.month === "February") {
@@ -45,20 +53,19 @@ class Month extends React.Component {
                 let eventForSpecificDate = this.props.events.filter(event => event.date === i)
                 // console.log(eventForSpecificDate)
                 if (eventForSpecificDate) {
-                    dates.push(<GridListTile><DateComponent date={i} key={i} event={eventForSpecificDate} handleEventNameChange={this.props.handleEventNameChange} deleteEvent={this.props.deleteEvent} handleUpdateSubmit={this.props.handleUpdateSubmit} updateEvent={this.props.updateEvent} formType={this.props.formType}/></GridListTile>)
+                    dates.push(<GridListTile><BorderedDate><DateComponent date={i} key={i} event={eventForSpecificDate} handleEventNameChange={this.props.handleEventNameChange} deleteEvent={this.props.deleteEvent} handleUpdateSubmit={this.props.handleUpdateSubmit} updateEvent={this.props.updateEvent} formType={this.props.formType}/></BorderedDate></GridListTile>)
                 } else {
-                    dates.push(<GridListTile><DateComponent date={i} key={i} handleNewSubmit={this.props.handleNewSubmit} handleEventNameChange={this.props.handleEventNameChange} formType={this.props.formType}/></GridListTile>)
+                    dates.push(<GridListTile><BorderedDate><DateComponent date={i} key={i} handleNewSubmit={this.props.handleNewSubmit} handleEventNameChange={this.props.handleEventNameChange} formType={this.props.formType}/></BorderedDate></GridListTile>)
                 }
             }
         } else {
-            console.log("hi from 31")
             for (let i = 16; i <= 31; i++) {
                 let eventForSpecificDate = this.props.events.filter(event => event.date === i)
                 // console.log(eventForSpecificDate)
                 if (eventForSpecificDate) {
-                    dates.push(<GridListTile><DateComponent date={i} key={i} event={eventForSpecificDate} handleEventNameChange={this.props.handleEventNameChange} deleteEvent={this.props.deleteEvent} handleUpdateSubmit={this.props.handleUpdateSubmit} updateEvent={this.props.updateEvent} formType={this.props.formType}/></GridListTile>)
+                    dates.push(<GridListTile><BorderedDate><DateComponent date={i} key={i} event={eventForSpecificDate} handleEventNameChange={this.props.handleEventNameChange} deleteEvent={this.props.deleteEvent} handleUpdateSubmit={this.props.handleUpdateSubmit} updateEvent={this.props.updateEvent} formType={this.props.formType}/></BorderedDate></GridListTile>)
                 } else {
-                    dates.push(<GridListTile><DateComponent date={i} key={i} handleNewSubmit={this.props.handleNewSubmit} handleEventNameChange={this.props.handleEventNameChange} formType={this.props.formType}/></GridListTile>)
+                    dates.push(<GridListTile><BorderedDate><DateComponent date={i} key={i} handleNewSubmit={this.props.handleNewSubmit} handleEventNameChange={this.props.handleEventNameChange} formType={this.props.formType}/></BorderedDate></GridListTile>)
                 }
             }
         }
@@ -68,7 +75,8 @@ class Month extends React.Component {
         const ColumnOne = styled.div`
             display: flex;
             justify-content: space-evenly;
-            flex-direction: column
+            flex-direction: column;
+            border-right: 1px solid lightgrey;
         `
 
         const ColumnTwo = styled.div`
@@ -79,7 +87,6 @@ class Month extends React.Component {
         `
 
 
-        console.log(this.props.page.month)
         return(
         <div>
             <GridList cellHeight='auto'>

@@ -41,7 +41,6 @@ class Page extends React.Component {
 
     handleNewSubmit = (evt, eventDate) => {
         evt.preventDefault()
-        console.log("hi from new submit")
         fetch("http://localhost:3000/events", {
             method: "POST",
             headers: {
@@ -108,7 +107,6 @@ class Page extends React.Component {
     
     //render (duh)
     render() {
-        console.log(this.props, this.props.events)
 
         //styled components
         const Title = styled.h3`
@@ -125,7 +123,6 @@ class Page extends React.Component {
         
 
         
-        console.log("hi from 123",this.props.events)
         return(<div>
             { this.props.page.month ? 
                 <div>

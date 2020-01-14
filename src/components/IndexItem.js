@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 class IndexItem extends React.Component {
     render() {
-        console.log("hi from index item")
+        
         const DeleteButton = styled.button`
             color: palevioletred;
             font-size: 1em;

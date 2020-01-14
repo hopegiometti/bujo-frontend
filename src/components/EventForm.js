@@ -43,7 +43,7 @@ class EventForm extends React.Component {
             border-radius: 3px;
         `;
         
-        console.log(this.props)
+        
         return(<div>
             { this.props.event ? 
             <>
