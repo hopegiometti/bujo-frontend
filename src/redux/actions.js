@@ -81,3 +81,17 @@ export const getUsers = (allUsers) => {
     payload: allUsers
   }
 }
+
+export const getJournals = (allJournals) => {
+  return {
+    type: "GET_JOURNALS",
+    payload: allJournals
+  }
+}
+
+export const getUserPages = (userPages) => {
+  return {
+    type: "GET_USER_PAGES",
+    payload: userPages
+  }
+}

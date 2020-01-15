@@ -64,14 +64,16 @@ class Page extends React.Component {
             color: palevioletred;
         `;
 
+        
         if (this.props.page.layout === "Monthly Log") {
             return (<>
             <Title>Events:</Title>
             <Month page={this.props.page} events={this.props.events} handleNewSubmit={this.handleNewSubmit} handleEventNameChange={this.handleEventNameChange} deleteEvent={this.deleteEvent} formType={this.state.formType}/>
             </>)
-        } else {
+        } else if (this.props.page.layout.includes("Weekly Log")) {
+            console.log(this.props.page.layout)
             return(<>
-                <Week />
+                <Week page={this.props.page} events={this.props.events}/>
             </>)
         }
     }

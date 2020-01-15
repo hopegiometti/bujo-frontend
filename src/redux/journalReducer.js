@@ -5,7 +5,9 @@ const initialState = {
     pages: [],
     events: [],
     page: {},
-    users: []
+    users: [],
+    journals: [],
+    userPages: []
 }
 
 const journalReducer = (state = initialState , action) => {
@@ -57,7 +59,7 @@ const journalReducer = (state = initialState , action) => {
         case 'ADD_PAGE':
             return {
                 ...state,
-                pages: [...state.pages, action.payload],
+                userPages: [...state.userPages, action.payload],
                 page: action.payload
             }
         case 'DELETE_PAGE':
@@ -77,6 +79,16 @@ const journalReducer = (state = initialState , action) => {
             return {
                 ...state,
                 users: action.payload
+            }
+        case 'GET_JOURNALS':
+            return {
+                ...state, 
+                journals: action.payload 
+            }
+        case 'GET_USER_PAGES': 
+            return {
+                ...state,
+                userPages: action.payload
             }
         default: 
             return state

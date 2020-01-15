@@ -10,9 +10,8 @@ class TopNavBar extends React.Component {
                     <select value={this.props.chosenUser} onChange={this.props.handleUserChange}>
                         <option disabled value="" >Select</option>
                         {this.props.users.map((user) => {
-                            return <option value={user}>{user.name}</option>
+                            return <option value={user.id}>{user.name}</option>
                         })}
-                        <option value="poop">poop</option>
                     </select>
                 <input type="submit" value="Submit"/>
             </form>

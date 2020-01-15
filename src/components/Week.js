@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import GridList from '@material-ui/core/GridList';
 
 class Week extends React.Component {
-    render() {
+    renderWeek = () => {
         const ColumnOne = styled.div`
             display: flex;
             justify-content: space-evenly;
@@ -25,11 +25,63 @@ class Week extends React.Component {
             text-align: left;
         `;
 
+        if (this.props.page.month === "January") {
+            if (this.props.page.layout.includes("Week Two")) {
+                return(<>
+                <GridList cellHeight={300}>
+                    <ColumnOne>
+                    <BorderedDay>
+                        <DayComponent name="Wednesday" dayOfMonth={8} events={this.props.events}/>
+                    </BorderedDay>
+                    <BorderedDay>
+                        <DayComponent name="Thursday" dayOfMonth={9} events={this.props.events}/>
+                    </BorderedDay>
+                    <BorderedDay>
+                        <DayComponent name="Friday" dayOfMonth={10} events={this.props.events}/>
+                        <div></div>
+                    </BorderedDay>
+                    </ColumnOne>
+                    <ColumnTwo>
+                        <BorderedDay>
+                            <DayComponent name="Saturday/Sunday" dayOfMonth={11|12} events={this.props.events}/>
+                        </BorderedDay>
+                        <BorderedDay>
+                            <DayComponent name="Monday" dayOfMonth={13} events={this.props.events}/>
+                        </BorderedDay>
+                        <BorderedDay>
+                            <DayComponent name="Tuesday" dayOfMonth={14} events={this.props.events}/>
+                        </BorderedDay>
+                    </ColumnTwo>
+                </GridList>
+                </>)
+            } 
+        }
+    }
 
+    render() {
+        // const ColumnOne = styled.div`
+        //     display: flex;
+        //     justify-content: space-evenly;
+        //     flex-direction: column;
+        //     border-right: 1px solid lightgrey;
+        // `
+
+        // const ColumnTwo = styled.div`
+        //     display: flex;
+        //     justify-content: space-evenly;
+        //     flex-direction: column
+        //     float: left;
+        // `
+        // const BorderedDay = styled.div`
+        //     border-bottom: 1px dashed lightgrey;
+        //     text-align: left;
+        // `;
+        
+        console.log(this.props)
         return(<div>
             hi from week!
-            <GridList cellHeight={300}>
-                <ColumnOne>
+            {/* <GridList cellHeight={300}> */}
+                {/* <ColumnOne>
                     <BorderedDay>
                         <DayComponent name="Monday"/>
                     </BorderedDay>
@@ -51,8 +103,9 @@ class Week extends React.Component {
                     <BorderedDay>
                         <DayComponent name="Saturday/Sunday"/>
                     </BorderedDay>
-                </ColumnTwo>
-            </GridList>
+                </ColumnTwo> */}
+                {this.renderWeek()}
+            {/* </GridList> */}
         </div>)
     }
 }
