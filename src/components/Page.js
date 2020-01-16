@@ -36,6 +36,7 @@ class Page extends React.Component {
 
     handleNewSubmit = (evt, eventDate) => {
         evt.preventDefault()
+        // console.log(eventDate)
         fetch("http://localhost:3000/events", {
             method: "POST",
             headers: {

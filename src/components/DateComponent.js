@@ -76,7 +76,6 @@ class DateComponent extends React.Component {
 
     handleNewSubmit = (evt, eventDate) => {
         evt.preventDefault()
-        
         fetch("http://localhost:3000/events", {
             method: "POST",
             headers: {

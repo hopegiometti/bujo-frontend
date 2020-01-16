@@ -18,7 +18,6 @@ class EventForm extends React.Component {
         `;
 
         
-        
         return(<div>
             { this.props.event ? 
             <>

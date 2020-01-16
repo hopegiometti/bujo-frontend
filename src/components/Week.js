@@ -4,6 +4,8 @@ import DayComponent from './DayComponent'
 //styling
 import styled from 'styled-components';
 import GridList from '@material-ui/core/GridList';
+//redux
+import { connect } from 'react-redux'
 
 class Week extends React.Component {
     renderWeek = () => {
@@ -38,12 +40,14 @@ class Week extends React.Component {
                     </BorderedDay>
                     <BorderedDay>
                         <DayComponent name="Friday" dayOfMonth={10} events={this.props.events}/>
-                        <div></div>
+                    </BorderedDay>
+                    <BorderedDay>
+                        <DayComponent name="Saturday" dayOfMonth={11} events={this.props.events}/>
                     </BorderedDay>
                     </ColumnOne>
                     <ColumnTwo>
                         <BorderedDay>
-                            <DayComponent name="Saturday/Sunday" dayOfMonth={11|12} events={this.props.events}/>
+                            <DayComponent name="Sunday" dayOfMonth={12} events={this.props.events}/>
                         </BorderedDay>
                         <BorderedDay>
                             <DayComponent name="Monday" dayOfMonth={13} events={this.props.events}/>
@@ -110,4 +114,11 @@ class Week extends React.Component {
     }
 }
 
-export default Week
+const mapStateToProps = (state) => {
+    return {
+        events: state.events
+    }
+}
+
+export default connect(mapStateToProps)(Week)
+// export default Week
