@@ -17,6 +17,7 @@ import { updatePage } from '../redux/actions'
 import { getUsers } from '../redux/actions'
 import { getJournals } from '../redux/actions'
 import { getUserPages } from '../redux/actions'
+import { getTasks } from '../redux/actions'
 //styling
 import styled from 'styled-components';
 import Container from '@material-ui/core/Container';
@@ -78,6 +79,7 @@ class mainContainer extends React.Component {
             .then(r => r.json())
             .then((page) => {
                 this.props.setPage(page)
+                this.props.getTasks(page.tasks)
             })
         } else if (pageToNavTo.layout.includes("Weekly Log")) {
            let pagesForTheSameMonth = this.props.userPages.filter(page => page.month === pageToNavTo.month)
@@ -90,7 +92,8 @@ class mainContainer extends React.Component {
            fetch(`http://localhost:3000/pages/${pageToNavTo.id}`)
             .then(r => r.json())
             .then((page) => {
-                this.props.setPage(page)})
+                this.props.setPage(page)
+                this.props.getTasks(page.tasks)})
         } else {
             fetch(`http://localhost:3000/pages/${pageToNavTo.id}`)
             .then(r => r.json())
@@ -343,7 +346,8 @@ const mapStateToProps = (state) => {
         events: state.events,
         users: state.users,
         journals: state.journals,
-        userPages: state.userPages
+        userPages: state.userPages,
+        tasks: state.tasks
     }
 }
 
@@ -353,4 +357,4 @@ const mapStateToProps = (state) => {
 //     }
 // }
 
-export default connect(mapStateToProps, { setUser, setJournal, setPages, setPage, setEvents, addPage, deletePage, updatePage, getUsers, getJournals, getUserPages })(mainContainer)
+export default connect(mapStateToProps, { setUser, setJournal, setPages, setPage, setEvents, addPage, deletePage, updatePage, getUsers, getJournals, getUserPages, getTasks })(mainContainer)

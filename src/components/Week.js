@@ -655,6 +655,7 @@ class Week extends React.Component {
 
     }
 
+
     render() {
         const ColumnOne = styled.div`
             display: flex;
@@ -671,7 +672,7 @@ class Week extends React.Component {
         `
         
         return(<div>
-            <GridList cellHeight={300}>
+            <GridList cellHeight='auto'>
                 <ColumnOne>
                     {this.renderWeekColumnOne()}
                 </ColumnOne>

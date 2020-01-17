@@ -124,7 +124,7 @@ class DateComponent extends React.Component {
                 if (this.state.updateEvent) {
                 
                     return(<div>
-                            <NumberStyle>{this.props.date}{dayInitial}</NumberStyle> <EventForm date={this.props.date} handleEventNameChange={this.handleEventNameChange} handleUpdateSubmit={this.handleUpdateSubmit} event={this.state.event}/>
+                            <NumberStyle>{this.props.date}{dayInitial}</NumberStyle><EventForm date={this.props.date} handleEventNameChange={this.handleEventNameChange} handleUpdateSubmit={this.handleUpdateSubmit} event={this.state.event}/>
                     </div>)
                 } else {
                     return(<div>

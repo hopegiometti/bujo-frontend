@@ -95,3 +95,31 @@ export const getUserPages = (userPages) => {
     payload: userPages
   }
 }
+
+export const getTasks = (tasks) => {
+  return {
+    type: "GET_TASKS",
+    payload: tasks
+  }
+}
+
+export const addTask = (newTask) => {
+  return {
+    type: "ADD_TASK",
+    payload: newTask
+  }
+}
+
+export const deleteTask = (taskToDelete) => {
+  return {
+    type: "DELETE_TASK",
+    payload: taskToDelete
+  }
+}
+
+export const updateTask = (taskToUpdate) => {
+  return {
+    type: "UPDATE_TASK",
+    payload: taskToUpdate
+  }
+}

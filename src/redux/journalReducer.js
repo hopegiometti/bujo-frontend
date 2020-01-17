@@ -7,7 +7,8 @@ const initialState = {
     page: {},
     users: [],
     journals: [],
-    userPages: []
+    userPages: [],
+    tasks: []
 }
 
 const journalReducer = (state = initialState , action) => {
@@ -89,6 +90,30 @@ const journalReducer = (state = initialState , action) => {
             return {
                 ...state,
                 userPages: action.payload
+            }
+        case 'GET_TASKS':
+            return {
+                ...state,
+                tasks: action.payload
+            }
+        case 'ADD_TASK':
+            let spreadedTasks = [...state.tasks, action.payload]
+            return {
+                ...state,
+                tasks: spreadedTasks
+            }
+        case 'DELETE_TASK':
+            let filteredTasks = state.tasks.filter(task => task.id !== action.payload)
+            return {
+                ...state,
+                tasks: filteredTasks
+            }
+        case 'UPDATE_TASK':
+            let filteredTasksTwo = state.tasks.filter(task => task.id !== action.payload.id)
+            let updatedTasks = [...filteredTasksTwo, action.payload]
+            return {
+                ...state,
+                tasks: updatedTasks
             }
         default: 
             return state
