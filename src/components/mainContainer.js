@@ -78,8 +78,19 @@ class mainContainer extends React.Component {
             .then(r => r.json())
             .then((page) => {
                 this.props.setPage(page)
-                // this.props.setEvents(page.events)
             })
+        } else if (pageToNavTo.layout.includes("Weekly Log")) {
+           let pagesForTheSameMonth = this.props.userPages.filter(page => page.month === pageToNavTo.month)
+           if (pagesForTheSameMonth.length > 0) {
+               let monthlyLogForMonth = pagesForTheSameMonth.filter(page => page.layout === "Monthly Log")
+               if (monthlyLogForMonth.length > 0) {
+                   this.props.setEvents(monthlyLogForMonth[0].events)
+               }   
+           }
+           fetch(`http://localhost:3000/pages/${pageToNavTo.id}`)
+            .then(r => r.json())
+            .then((page) => {
+                this.props.setPage(page)})
         } else {
             fetch(`http://localhost:3000/pages/${pageToNavTo.id}`)
             .then(r => r.json())
@@ -88,13 +99,6 @@ class mainContainer extends React.Component {
                 this.props.setEvents(page.events)
             })
         }
-        //fetch to grab the page and then call on these actions
-        // fetch(`http://localhost:3000/pages/${pageToNavTo.id}`)
-        // .then(r => r.json())
-        // .then((page) => {
-        //     this.props.setPage(page)
-        //     this.props.setEvents(page.events)
-        // })
     }
 
     togglePageForm = (evt, pageToUpdate) => {

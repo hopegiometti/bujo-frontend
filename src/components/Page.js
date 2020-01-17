@@ -1,7 +1,5 @@
 import React from 'react'
 //components
-import Event from './Event'
-import EventForm from './EventForm'
 import Month from './Month'
 import Week from './Week'
 //styling
@@ -36,7 +34,6 @@ class Page extends React.Component {
 
     handleNewSubmit = (evt, eventDate) => {
         evt.preventDefault()
-        // console.log(eventDate)
         fetch("http://localhost:3000/events", {
             method: "POST",
             headers: {
@@ -72,7 +69,6 @@ class Page extends React.Component {
             <Month page={this.props.page} events={this.props.events} handleNewSubmit={this.handleNewSubmit} handleEventNameChange={this.handleEventNameChange} deleteEvent={this.deleteEvent} formType={this.state.formType}/>
             </>)
         } else if (this.props.page.layout.includes("Weekly Log")) {
-            console.log(this.props.page.layout)
             return(<>
                 <Week page={this.props.page} events={this.props.events}/>
             </>)

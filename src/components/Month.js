@@ -426,7 +426,7 @@ class Month extends React.Component {
             float: left;
         `
 
-
+        // console.log(this.props.page)
         return(
         <div>
             <GridList cellHeight='auto'>

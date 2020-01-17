@@ -1,9 +1,13 @@
 import React from 'react'
+//components
 import Event from './Event'
 import EventForm from './EventForm'
+//redux
 import { connect } from 'react-redux'
 import { updateEvent } from '../redux/actions'
 import { addEvent } from '../redux/actions'
+
+//styling
 import styled from 'styled-components';
 import { flexbox } from '@material-ui/system';
 import Grid from '@material-ui/core/Grid';
