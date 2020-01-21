@@ -41,13 +41,13 @@ class mainContainer extends React.Component {
 
     //lifecycle
     componentDidMount() {
-        fetch(`http://localhost:3000/users/6`)
+        fetch(`http://localhost:3000/users/8`)
         .then(r => r.json())
         .then((hope) => {
             this.props.setUser(hope)
         })
 
-        fetch("http://localhost:3000/journals/5")
+        fetch("http://localhost:3000/journals/7")
         .then(r => r.json())
         .then((journal) => {
             this.props.setJournal(journal)
