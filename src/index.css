@@ -20,5 +20,23 @@ code {
 
 .Collapsible {
   text-align: left;
-  text-indent: 5%; 
+  text-indent: 1%;
+}
+
+.Collapsible__contentOuter {
+  border-bottom: 1px solid lightgrey;
+  display:block;
+}
+
+.Collapsible__contentInner {
+  text-align: left;
+}
+
+.icon {
+  display: inline-block;
+  float: right;
+}
+
+.rotate90 {
+  transform: rotateZ(90deg);
 }

@@ -25,6 +25,7 @@ class IndexBar extends React.Component {
         }
     }
 
+
     renderButton = () => {
         const AddButtonHover = styled.button`
             color: white;
@@ -32,6 +33,8 @@ class IndexBar extends React.Component {
             border: 2px solid palevioletred;
             border-radius: 3px;
             background-color: palevioletred;
+            margin-bottom: 3%;
+            margin-top: 3%;
         `;
 
         const AddButton = styled.button`
@@ -39,6 +42,8 @@ class IndexBar extends React.Component {
             font-size: 1em;
             border: 2px solid palevioletred;
             border-radius: 3px;
+            margin-bottom: 3%;
+            margin-top: 3%;
         `;
 
 
@@ -59,7 +64,7 @@ class IndexBar extends React.Component {
 
         this.props.pages.map((page) => {
             if (page.month === month) {
-                pagesForThatMonth.push(<IndexItem key={page.id} page={page} handleNavClick={this.props.handleNavClick} deletePage={this.props.deletePage}/>)
+                pagesForThatMonth.push(<IndexItem key={page.id} page={page} handleNavClick={this.props.handleNavClick} deletePage={this.props.deletePage} />)
             } 
         })
         return pagesForThatMonth
@@ -73,7 +78,7 @@ class IndexBar extends React.Component {
             margin-right: 20px; 
             font-family: "Open Sans", sans-serif;
             font-size: 100%;
-            color: #333;
+            color: grey;
             border: none;
         `;
 
@@ -81,11 +86,14 @@ class IndexBar extends React.Component {
 
         let pageMonths = this.props.pages.map(page => page.month)
         let uniqueMonths = [...new Set(pageMonths)]
+        let allMonths = ['January','February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+        let monthsInOrder = uniqueMonths.sort((a, b) => allMonths.indexOf(a) - allMonths.indexOf(b))
 
         return(<div>
             <MenuLI>
-                {uniqueMonths.map(month => 
+                {monthsInOrder.map(month => 
                 <>
+                    <span className="icon">+</span>
                     <Collapsible trigger={month} transitionTime={100}>
                         {this.renderIndexItems(month)}
                     </Collapsible>

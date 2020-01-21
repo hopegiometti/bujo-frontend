@@ -100,7 +100,6 @@ class DayComponent extends React.Component {
     }
 
     deleteTask = (evt, taskToDelete) => {
-        console.log(taskToDelete)
         fetch(`http://localhost:3000/tasks/${taskToDelete}`, {
             method: "DELETE"
         })

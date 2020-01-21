@@ -18,18 +18,27 @@ class Task extends React.Component {
             float: right;
         `;
 
+        const Input = styled.input`
+            padding: 0.5em;
+            margin: 0.5em;
+            color: palevioletred;
+            background: white;
+            border: none;
+            border-radius: 3px;
+        `;
+
         if (this.props.updateTaskState && this.props.chosenTask.id === this.props.task.id) {
             return(<>
             <div>
                 <form onSubmit={(evt) => this.props.handleUpdateTaskSubmit(evt)}>
-                    <input
+                    <Input
                     onChange={this.props.handleDescriptionChange}
                         type="text"
                         name="description"
                         value={this.props.description}
                         placeholder={this.props.task.description}
                     />
-                    <input type="submit" value="add"/>
+                    <Input type="submit" value="add"/>
                 </form>
             </div>
             </>)

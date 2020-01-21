@@ -2,6 +2,8 @@ import React from 'react'
 //components
 import Month from './Month'
 import Week from './Week'
+import HabitTracker from './HabitTracker';
+import List from './List'
 //styling
 import styled from 'styled-components';
 import Container from '@material-ui/core/Container';
@@ -13,6 +15,7 @@ import { setEvents } from '../redux/actions'
 import { deleteEvent } from '../redux/actions'
 import { addEvent } from '../redux/actions'
 import { updateEvent } from '../redux/actions'
+
 
 
 
@@ -65,12 +68,20 @@ class Page extends React.Component {
         
         if (this.props.page.layout === "Monthly Log") {
             return (<>
-            <Title>Events:</Title>
+            <Title>{this.props.page.month} Events:</Title>
             <Month page={this.props.page} events={this.props.events} handleNewSubmit={this.handleNewSubmit} handleEventNameChange={this.handleEventNameChange} deleteEvent={this.deleteEvent} formType={this.state.formType}/>
             </>)
         } else if (this.props.page.layout.includes("Weekly Log")) {
             return(<>
                 <Week page={this.props.page} events={this.props.events}/>
+            </>)
+        } else if (this.props.page.layout.includes("Habit Tracker")) {
+            return(<>
+                <HabitTracker />
+            </>)
+        } else if (this.props.page.layout.includes("List")) {
+            return(<>
+                <List />
             </>)
         }
     }
@@ -109,9 +120,9 @@ class Page extends React.Component {
 
         
         return(<div>
-            { this.props.page.month ? 
+            { this.props.page.month ?
                 <div>
-                    {this.props.page.month} - {this.props.page.layout}
+                <p>    </p>
                     <Container maxWidth="md">
                         <Paper elevation={3} style={{ padding: 0, margin: 0}}>
                         <SettingsSpan onClick={(evt) => this.props.togglePageForm(evt, this.props.page)}><SettingsOutlinedIcon /></SettingsSpan>

@@ -41,22 +41,24 @@ class mainContainer extends React.Component {
 
     //lifecycle
     componentDidMount() {
-        // fetch(`http://localhost:3000/users/3`)
-        // .then(r => r.json())
-        // .then((hope) => {
-        //     this.props.setUser(hope)
-        // })
+        fetch(`http://localhost:3000/users/6`)
+        .then(r => r.json())
+        .then((hope) => {
+            this.props.setUser(hope)
+        })
 
-        // fetch("http://localhost:3000/journals/3")
-        // .then(r => r.json())
-        // .then((journal) => {
-        //     this.props.setJournal(journal)
-        // })
+        fetch("http://localhost:3000/journals/5")
+        .then(r => r.json())
+        .then((journal) => {
+            this.props.setJournal(journal)
+        })
 
         fetch("http://localhost:3000/pages")
         .then(r => r.json())
         .then((pages) => {
             this.props.setPages(pages)
+            let allUsersPages = this.props.pages.filter(page => page.journal_id === this.props.journal.id)
+            this.props.getUserPages(allUsersPages)
         })
 
         fetch("http://localhost:3000/users")
@@ -269,8 +271,6 @@ class mainContainer extends React.Component {
            let allUsersPages = this.props.pages.filter(page => page.journal_id === this.props.journal.id)
            this.props.getUserPages(allUsersPages)
         })
-
-
     }
 
     renderPageForm = () => {
@@ -279,6 +279,13 @@ class mainContainer extends React.Component {
         } else {
             return <PageForm handlePageFormWeekChange={this.handlePageFormWeekChange} updateForm={this.state.updateForm} togglePageForm={this.togglePageForm} newPageSubmit={this.newPageSubmit} handlePageFormMonthChange={this.handlePageFormMonthChange} handlePageFormLayoutChange={this.handlePageFormLayoutChange} pageMonth={this.state.pageMonth} pageLayout={this.state.pageLayout}/>
         }
+    }
+
+    handleLogout = () => {
+        this.props.setUser({})
+        this.props.getUserPages([])
+        this.props.setPage({})
+        this.props.setJournal({})
     }
     
 
@@ -299,6 +306,7 @@ class mainContainer extends React.Component {
         `
         const IndexStyle = styled.div`
             width: 20%;
+            text-align: left;
             float: left;
         `
         const MenuToggle = styled.input`
@@ -310,16 +318,19 @@ class mainContainer extends React.Component {
             top: 0;
             left: 0;
             padding-top: 60px;
+            padding-bottom: 20%;
             width: 100%;
             overflow-y: scroll;
             text-align: center;
             -webkit-transition: opacity 300ms ease-in, visibility 0s ease-in 300ms;
             transition: opacity 300ms ease-in, visibility 0s ease-in 300ms;
         `;
+
+        
+
         return(
             <div>
-                <TopNavBar users={this.props.users} userId={this.state.userId} handleUserChange={this.handleUserChange} chooseUser={this.chooseUser}/>
-                <Title>{this.props.hello} {this.props.user.name}</Title>
+                <TopNavBar handleLogout={this.handleLogout} users={this.props.users} userId={this.state.userId} handleUserChange={this.handleUserChange} chooseUser={this.chooseUser}/>
                 <IndexStyle>
                     <MenuToggle />
                     <NavbarHeader>
@@ -330,7 +341,7 @@ class mainContainer extends React.Component {
                         </Container>
                     </NavbarHeader>
                 </IndexStyle>
-                    {this.state.showPageForm ? this.renderPageForm() : <JournalContainer journal={this.props.journal} page={this.props.page} events={this.props.events} togglePageForm={this.togglePageForm}/>}
+                    {this.state.showPageForm ? <><p>   </p>{this.renderPageForm()}</> : <JournalContainer journal={this.props.journal} page={this.props.page} events={this.props.events} togglePageForm={this.togglePageForm}/>}
             </div>
         )
     }

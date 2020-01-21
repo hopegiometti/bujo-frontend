@@ -425,6 +425,8 @@ class Month extends React.Component {
             flex-direction: column
             float: left;
         `
+        const MonthHeading = styled.h1`
+        `;
 
         return(
         <div>
