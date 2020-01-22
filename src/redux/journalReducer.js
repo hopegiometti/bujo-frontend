@@ -152,6 +152,12 @@ const journalReducer = (state = initialState , action) => {
                 ...state,
                 items: itemsWithNew
             }
+        case 'DELETE_ITEM':
+            let filteredItems = state.items.filter(item => item.id !== action.payload)
+            return {
+                ...state,
+                items: filteredItems
+            }
         default: 
             return state
     }

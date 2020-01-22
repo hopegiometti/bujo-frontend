@@ -165,3 +165,10 @@ export const addItem = (newItem) => {
     payload: newItem
   }
 }
+
+export const deleteItem = (itemToDelete) => {
+  return {
+    type: 'DELETE_ITEM',
+    payload: itemToDelete
+  }
+}
