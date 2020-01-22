@@ -19,9 +19,6 @@ class HabitTracker extends React.Component {
         let habits = []
         if (this.props.habits) {
 
-        
-
-            console.log(this.props.habits)
             this.props.habits.forEach((habit) => {
                 if (habit.streaks) {
                     let habitStreaks = habit.streaks.map(streak => streak)
@@ -89,7 +86,6 @@ class HabitTracker extends React.Component {
 
         return(<div>
             {this.renderHabits()}
-            <AddButton onClick={this.showNewHabitForm}>add habit</AddButton>
             {this.state.habitForm ? 
                 (<div>
                     <form onSubmit={(evt) => this.createNewHabit(evt)}>
@@ -103,6 +99,7 @@ class HabitTracker extends React.Component {
                         <input type="submit" value="add habit"/>
                     </form>
                 </div> ) : null }
+            <AddButton onClick={this.showNewHabitForm}>add habit</AddButton>
         </div>)
     }
 }

@@ -49,7 +49,6 @@ class Streak extends React.Component {
             .then(r => r.json())
             .then((page) => {
                 this.props.getHabits(page.habits)
-                console.log(page)
                 page.habits.forEach((habit) => {
                    this.props.getStreaks(habit.streaks)
                }) 

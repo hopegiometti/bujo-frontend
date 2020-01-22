@@ -41,13 +41,13 @@ class PageForm extends React.Component {
     renderNewListForm = () => {
         if (this.props.pageLayout === "List") {
             return(<div>
-                <form>
                     <label>List Name:</label>
                     <input 
                     type="text"
                     name="name"
+                    value={this.props.listName}
+                    onChange={this.props.handleListNameChange}
                     />
-                </form>
             </div>)
         }
     }
@@ -123,8 +123,10 @@ class PageForm extends React.Component {
                             <option value="Monthly Log">Monthly Log</option>
                             <option value="Weekly Log">Weekly Log</option>
                             <option value="Habit Tracker">Habit Tracker</option>
+                            <option value="List">List</option>
                         </select>
                         {this.renderWeeklyOptions()}
+                        {this.renderNewListForm()}
                     </div>
                     <input type="submit" value="Submit"/>
             </form>

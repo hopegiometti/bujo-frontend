@@ -158,3 +158,10 @@ export const getItems = (allListItems) => {
     payload: allListItems
   }
 }
+
+export const addItem = (newItem) => {
+  return {
+    type: 'ADD_ITEM',
+    payload: newItem
+  }
+}

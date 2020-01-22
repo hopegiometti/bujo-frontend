@@ -10,7 +10,8 @@ const initialState = {
     userPages: [],
     tasks: [],
     habits: [],
-    streaks: []
+    streaks: [],
+    items: []
 }
 
 const journalReducer = (state = initialState , action) => {
@@ -139,6 +140,17 @@ const journalReducer = (state = initialState , action) => {
             return {
                 ...state,
                 habits: habitsWithNew
+            }
+        case 'GET_ITEMS':
+            return {
+                ...state,
+                items: action.payload
+            }
+        case 'ADD_ITEM':
+            let itemsWithNew = [...state.items, action.payload]
+            return {
+                ...state,
+                items: itemsWithNew
             }
         default: 
             return state
