@@ -3,6 +3,8 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 //styling
 import styled from 'styled-components';
+import Container from '@material-ui/core/Container';
+import Paper from '@material-ui/core/Paper';
 
 class LoginContainer extends React.Component {
     render() {
@@ -63,14 +65,16 @@ class LoginContainer extends React.Component {
         return(<div>
             <>
             <AnotherDiv>
-                <WelcomeDiv>
+            <Container maxWidth="sm">
+                <Paper elevation={3} style={{ padding: 0, margin: 0}}>
                     <StyledLogin>
                         <Title>Login:</Title>
                         <StyledInput correct={true} type="text" placeholder="email" />
                         <StyledInput correct={false} type="password" placeholder="password" />
                         <Link to="/users/hope"><LoginButton>Login</LoginButton></Link>
                     </StyledLogin>
-                </WelcomeDiv>
+                </Paper>
+            </Container>
             </AnotherDiv>
             </>
         </div>)

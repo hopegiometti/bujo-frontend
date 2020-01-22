@@ -77,14 +77,6 @@ class mainContainer extends React.Component {
             this.props.getJournals(allJournals)
         })
 
-        fetch("http://localhost:3000/habits")
-        .then(r => r.json())
-        .then((allHabits) => {
-            this.props.getHabits(allHabits)
-            allHabits.forEach(habit => {
-                this.props.getStreaks(habit.streaks)
-            })
-        })
     }
     
     //other methods
