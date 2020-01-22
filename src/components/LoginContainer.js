@@ -60,6 +60,7 @@ class LoginContainer extends React.Component {
             display: flex;
             justify-content: center;
             align-items: center;
+            height: 90vh;
         `;
 
         return(<div>

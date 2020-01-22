@@ -31,6 +31,7 @@ import { flexbox } from '@material-ui/system';
 import Paper from '@material-ui/core/Paper';
 
 
+
 class mainContainer extends React.Component {
     state={
         showPageForm: false,
@@ -409,11 +410,11 @@ class mainContainer extends React.Component {
                 <IndexStyle>
                     <MenuToggle />
                     <NavbarHeader>
-                        <Container maxWidth="xs">
-                            <Paper elevation={3} style={{ padding: 0, margin: 0}}>
-                                <IndexBar pages={this.props.userPages} handleNavClick={this.handleNavClick} togglePageForm={this.togglePageForm} deletePage={this.deletePage}/>
-                            </Paper>
-                        </Container>
+                            <Container maxWidth="xs">
+                                <Paper elevation={3} style={{ padding: 0, margin: 0}}>
+                                    <IndexBar pages={this.props.userPages} handleNavClick={this.handleNavClick} togglePageForm={this.togglePageForm} deletePage={this.deletePage}/>
+                                </Paper>
+                            </Container>
                     </NavbarHeader>
                 </IndexStyle>
                     {this.state.showPageForm ? <><p>   </p>{this.renderPageForm()}</> : <JournalContainer journal={this.props.journal} page={this.props.page} events={this.props.events} togglePageForm={this.togglePageForm}/>}

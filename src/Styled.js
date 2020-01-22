@@ -1,3 +1,4 @@
+import { createGlobalStyle } from 'styled-components';
 import styled from 'styled-components';
 
 export const Input = styled.input`
@@ -7,4 +8,9 @@ export const Input = styled.input`
     background: white;
     border: none;
     border-radius: 3px;
+`;
+
+
+export const BodyColor = styled.div`
+    background-color: tomato;
 `;

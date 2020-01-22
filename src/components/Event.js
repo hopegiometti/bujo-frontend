@@ -18,14 +18,13 @@ class Event extends React.Component {
 
         const DeleteButton = styled.button`
             color: palevioletred;
-            font-size: 1em;
+            font-size: 0.5em;
             border: 2px solid palevioletred;
-            border-radius: 3px;
-            width: 5%;
-            height: 20%;
-            font-size: 20%;
+            border-radius: 25%;
             text-align: center;
-            float: right;
+            color: white;
+            background-color: palevioletred;
+            margin-left: 5%;
         `;
 
         if (this.props.page.layout.includes("Weekly Log")) {

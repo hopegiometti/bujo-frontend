@@ -71,6 +71,9 @@ class HabitTracker extends React.Component {
         .then(r => r.json())
         .then((newHabit) => {
             this.props.addHabit(newHabit)
+            this.setState({
+                habitForm: false
+            })
         })
     }
     
