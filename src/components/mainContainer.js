@@ -43,13 +43,13 @@ class mainContainer extends React.Component {
 
     //lifecycle
     componentDidMount() {
-        fetch(`http://localhost:3000/users/12`)
+        fetch(`http://localhost:3000/users/14`)
         .then(r => r.json())
         .then((hope) => {
             this.props.setUser(hope)
         })
 
-        fetch("http://localhost:3000/journals/11")
+        fetch("http://localhost:3000/journals/13")
         .then(r => r.json())
         .then((journal) => {
             this.props.setJournal(journal)
@@ -83,6 +83,12 @@ class mainContainer extends React.Component {
                 this.props.getStreaks(habit.streaks)
             })
         })
+
+        fetch("http://localhost:3000/items")
+        .then(r => r.json())
+        .then((allItems) => {
+            
+        })
     }
     
     //other methods
@@ -107,6 +113,18 @@ class mainContainer extends React.Component {
             .then((page) => {
                 this.props.setPage(page)
                 this.props.getTasks(page.tasks)})
+        } else if (pageToNavTo.layout.includes("Habit Tracker") && this.props.page.month !== pageToNavTo.month) {
+            this.props.getHabits([])
+            this.props.getStreaks([])
+            fetch(`http://localhost:3000/pages/${pageToNavTo.id}`)
+            .then(r => r.json())
+            .then((page) => {
+                this.props.setPage(page)
+                this.props.getHabits(page.habits)
+                page.habits.forEach(habit => {
+                    this.props.getStreaks(habit.streaks)
+                })
+            })
         } else {
             fetch(`http://localhost:3000/pages/${pageToNavTo.id}`)
             .then(r => r.json())

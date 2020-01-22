@@ -151,3 +151,10 @@ export const addHabit = (newHabit) => {
     payload: newHabit
   }
 }
+
+export const getItems = (allListItems) => {
+  return {
+    type: 'GET_ITEMS',
+    payload: allListItems
+  }
+}

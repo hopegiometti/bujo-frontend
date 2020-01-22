@@ -17,18 +17,25 @@ class HabitTracker extends React.Component {
     renderHabits = () => {
 
         let habits = []
+        if (this.props.habits) {
 
-        this.props.habits.forEach((habit) => {
-          let habitStreaks = habit.streaks.map(streak => streak)
-          let streaksForHabit = []
+        
 
-          for (let i=0; i<habitStreaks.length; i++) {
-            let streaks = this.props.streaks.filter(streak => streak[0] === habitStreaks[i])
-            streaksForHabit.push(streaks)
-          }
+            console.log(this.props.habits)
+            this.props.habits.forEach((habit) => {
+                if (habit.streaks) {
+                    let habitStreaks = habit.streaks.map(streak => streak)
+                    let streaksForHabit = []
 
-          habits.push(<Habit key={habit.id} habit={habit} streaks={streaksForHabit[0]}/>)  
-        })
+                    for (let i=0; i<habitStreaks.length; i++) {
+                        let streaks = this.props.streaks.filter(streak => streak[0] === habitStreaks[i])
+                        streaksForHabit.push(streaks)
+                    }
+
+                    habits.push(<Habit key={habit.id} habit={habit} streaks={streaksForHabit[0]}/>)
+                } 
+            })
+        }
         
         return habits
     }

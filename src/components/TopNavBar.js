@@ -52,6 +52,7 @@ class TopNavBar extends React.Component {
             border-bottom: 1px solid lightgrey;
             overflow-y: scroll;
             text-align: center;
+            background-color: #ffffff;
             -webkit-transition: opacity 300ms ease-in, visibility 0s ease-in 300ms;
             transition: opacity 300ms ease-in, visibility 0s ease-in 300ms;
         `;

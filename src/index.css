@@ -24,7 +24,7 @@ code {
 }
 
 .Collapsible__contentOuter {
-  border-bottom: 1px solid lightgrey;
+  /* border-bottom: 1px solid lightgrey; */
   display:block;
 }
 

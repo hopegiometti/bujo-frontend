@@ -45,11 +45,12 @@ class Streak extends React.Component {
         })
         .then(r => r.json())
         .then((newStreak) => {
-            fetch("http://localhost:3000/habits")
+            fetch(`http://localhost:3000/pages/${this.props.page.id}`)
             .then(r => r.json())
-            .then((allHabits) => {
-                this.props.getHabits(allHabits)
-               allHabits.forEach((habit) => {
+            .then((page) => {
+                this.props.getHabits(page.habits)
+                console.log(page)
+                page.habits.forEach((habit) => {
                    this.props.getStreaks(habit.streaks)
                }) 
             })
@@ -68,7 +69,8 @@ class Streak extends React.Component {
 
 const mapStateToProps = (state) =>{
     return {
-        habits: state.habits
+        habits: state.habits,
+        page: state.page
     }
 }
 

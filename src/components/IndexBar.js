@@ -9,53 +9,20 @@ import Paper from '@material-ui/core/Paper';
 import Collapsible from 'react-collapsible';
 
 class IndexBar extends React.Component {
-    state={
-        hover: false
-    }
-
-    toggleHover = () => {
-        if (this.state.hover) {
-            this.setState({
-                hover: false
-            })
-        } else {
-            this.setState({
-                hover: true
-            })
-        }
-    }
-
 
     renderButton = () => {
-        const AddButtonHover = styled.button`
+    
+        const AddButton = styled.button`
             color: white;
-            font-size: 1em;
+            font-size: 0.8em;
             border: 2px solid palevioletred;
             border-radius: 3px;
             background-color: palevioletred;
-            margin-bottom: 3%;
-            margin-top: 3%;
+            margin-top: 10%;
         `;
 
-        const AddButton = styled.button`
-            color: palevioletred;
-            font-size: 1em;
-            border: 2px solid palevioletred;
-            border-radius: 3px;
-            margin-bottom: 3%;
-            margin-top: 3%;
-        `;
+        return <AddButton onClick={this.props.togglePageForm}>add page</AddButton>
 
-
-        if (this.state.hover) {
-           return <AddButtonHover onClick={this.props.togglePageForm} variant="contained" color="primary">
-                add page
-            </AddButtonHover>
-        } else {
-           return <AddButton onClick={this.props.togglePageForm} variant="contained" color="primary">
-                add page
-            </AddButton>
-        }
     }
 
 
@@ -99,7 +66,7 @@ class IndexBar extends React.Component {
                     </Collapsible>
                 </>)}
                 {/* {this.props.pages.map(page => <IndexItem key={page.id} page={page} handleNavClick={this.props.handleNavClick} deletePage={this.props.deletePage}/>)} */}
-                <span onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover}>
+                <span>
                     {this.renderButton()}
                 </span>
             </MenuLI>

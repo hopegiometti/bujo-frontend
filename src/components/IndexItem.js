@@ -24,7 +24,7 @@ class IndexItem extends React.Component {
             color: palevioletred;
             font-size: 0.5em;
             border: 2px solid palevioletred;
-            border-radius: 50%;
+            border-radius: 25%;
             text-align: center;
             color: white;
             background-color: palevioletred;

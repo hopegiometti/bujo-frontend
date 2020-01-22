@@ -51,18 +51,27 @@ class LoginContainer extends React.Component {
             margin: 1%;
             width: 30%;
             padding: 1%;
+            background-color: #e6e6e6;
+        `;
+
+        const AnotherDiv = styled.div`
+            display: flex;
+            justify-content: center;
+            align-items: center;
         `;
 
         return(<div>
             <>
-            <WelcomeDiv>
-                <StyledLogin>
-                    <Title>Login:</Title>
-                    <StyledInput correct={true} type="text" placeholder="email" />
-                    <StyledInput correct={false} type="password" placeholder="password" />
-                    <Link to="/users/hope"><LoginButton>Login</LoginButton></Link>
-                </StyledLogin>
-            </WelcomeDiv>
+            <AnotherDiv>
+                <WelcomeDiv>
+                    <StyledLogin>
+                        <Title>Login:</Title>
+                        <StyledInput correct={true} type="text" placeholder="email" />
+                        <StyledInput correct={false} type="password" placeholder="password" />
+                        <Link to="/users/hope"><LoginButton>Login</LoginButton></Link>
+                    </StyledLogin>
+                </WelcomeDiv>
+            </AnotherDiv>
             </>
         </div>)
     }
