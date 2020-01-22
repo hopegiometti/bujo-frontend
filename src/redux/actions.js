@@ -123,3 +123,31 @@ export const updateTask = (taskToUpdate) => {
     payload: taskToUpdate
   }
 }
+
+export const getHabits = (allHabits) => {
+  return {
+    type: 'GET_HABITS',
+    payload: allHabits
+  }
+}
+
+export const getStreaks = (theStreaks) => {
+  return {
+    type: 'GET_STREAKS',
+    payload: theStreaks
+  }
+}
+
+export const addStreak = (newStreak) => {
+  return {
+    type: 'ADD_STREAK',
+    payload: newStreak
+  }
+}
+
+export const addHabit = (newHabit) => {
+  return {
+    type: 'ADD_HABIT',
+    payload: newHabit
+  }
+}

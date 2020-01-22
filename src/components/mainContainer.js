@@ -18,6 +18,8 @@ import { getUsers } from '../redux/actions'
 import { getJournals } from '../redux/actions'
 import { getUserPages } from '../redux/actions'
 import { getTasks } from '../redux/actions'
+import { getHabits } from '../redux/actions'
+import { getStreaks } from '../redux/actions'
 //styling
 import styled from 'styled-components';
 import Container from '@material-ui/core/Container';
@@ -41,13 +43,13 @@ class mainContainer extends React.Component {
 
     //lifecycle
     componentDidMount() {
-        fetch(`http://localhost:3000/users/8`)
+        fetch(`http://localhost:3000/users/12`)
         .then(r => r.json())
         .then((hope) => {
             this.props.setUser(hope)
         })
 
-        fetch("http://localhost:3000/journals/7")
+        fetch("http://localhost:3000/journals/11")
         .then(r => r.json())
         .then((journal) => {
             this.props.setJournal(journal)
@@ -71,6 +73,15 @@ class mainContainer extends React.Component {
         .then(r => r.json())
         .then((allJournals) => {
             this.props.getJournals(allJournals)
+        })
+
+        fetch("http://localhost:3000/habits")
+        .then(r => r.json())
+        .then((allHabits) => {
+            this.props.getHabits(allHabits)
+            allHabits.forEach(habit => {
+                this.props.getStreaks(habit.streaks)
+            })
         })
     }
     
@@ -327,7 +338,6 @@ class mainContainer extends React.Component {
         `;
 
         
-
         return(
             <div>
                 <TopNavBar handleLogout={this.handleLogout} users={this.props.users} userId={this.state.userId} handleUserChange={this.handleUserChange} chooseUser={this.chooseUser}/>
@@ -358,7 +368,9 @@ const mapStateToProps = (state) => {
         users: state.users,
         journals: state.journals,
         userPages: state.userPages,
-        tasks: state.tasks
+        tasks: state.tasks,
+        habits: state.habits,
+        streaks: state.streaks
     }
 }
 
@@ -368,4 +380,4 @@ const mapStateToProps = (state) => {
 //     }
 // }
 
-export default connect(mapStateToProps, { setUser, setJournal, setPages, setPage, setEvents, addPage, deletePage, updatePage, getUsers, getJournals, getUserPages, getTasks })(mainContainer)
+export default connect(mapStateToProps, { setUser, setJournal, setPages, setPage, setEvents, addPage, deletePage, updatePage, getUsers, getJournals, getUserPages, getTasks, getHabits, getStreaks })(mainContainer)

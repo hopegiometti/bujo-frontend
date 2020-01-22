@@ -8,7 +8,9 @@ const initialState = {
     users: [],
     journals: [],
     userPages: [],
-    tasks: []
+    tasks: [],
+    habits: [],
+    streaks: []
 }
 
 const journalReducer = (state = initialState , action) => {
@@ -114,6 +116,29 @@ const journalReducer = (state = initialState , action) => {
             return {
                 ...state,
                 tasks: updatedTasks
+            }
+        case 'GET_HABITS':
+            return {
+                ...state,
+                habits: action.payload
+            }
+        case 'GET_STREAKS':
+            let spreadedStreaks = [...state.streaks, action.payload]
+            return {
+                ...state,
+                streaks: spreadedStreaks
+            }
+        case 'ADD_STREAK':
+            let streaksWithNew = [...state.streaks, action.payload]
+            return {
+                ...state,
+                streaks: streaksWithNew
+            }
+        case 'ADD_HABIT':
+            let habitsWithNew = [...state.habits, action.payload]
+            return {
+                ...state,
+                habits: habitsWithNew
             }
         default: 
             return state

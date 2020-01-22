@@ -15,23 +15,23 @@ class PageForm extends React.Component {
             return(<div>
                 <label>Pick a week:</label>
                 <select value={this.props.weeklyLayoutWeek} onChange={this.props.handlePageFormWeekChange}>
-                            <option disabled value="" >Select</option>
-                            <option value="Week One">Week One</option>
-                            <option value="Week Two">Week Two</option>
-                            <option value="Week Three">Week Three</option>
-                            <option value="Week Four">Week Four</option>
-                            <option value="Week Five">Week Five</option>
+                    <option selected disabled value="" >Select</option>
+                    <option value="Week One">Week One</option>
+                    <option value="Week Two">Week Two</option>
+                    <option value="Week Three">Week Three</option>
+                    <option value="Week Four">Week Four</option>
+                    <option value="Week Five">Week Five</option>
                 </select>
                 </div>)
             } else {
                 return(<div>
                     <label>Pick a week:</label>
                     <select value={this.props.weeklyLayoutWeek} onChange={this.props.handlePageFormWeekChange}>
-                                <option selected disabled value="" >Select</option>
-                                <option value="Week One">Week One</option>
-                                <option value="Week Two">Week Two</option>
-                                <option value="Week Three">Week Three</option>
-                                <option value="Week Four">Week Four</option>
+                        <option selected disabled value="" >Select</option>
+                        <option value="Week One">Week One</option>
+                        <option value="Week Two">Week Two</option>
+                        <option value="Week Three">Week Three</option>
+                        <option value="Week Four">Week Four</option>
                     </select>
                     </div>) 
             }
