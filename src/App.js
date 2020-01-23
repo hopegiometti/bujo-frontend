@@ -4,6 +4,7 @@ import './App.css';
 //components
 import MainContainer from './components/mainContainer'
 import LoginContainer from './components/LoginContainer'
+import SettingsComp from './components/SettingsComp'
 //styling
 import { GlobalStyle } from './Styled'
 import { BodyColor } from './Styled'
@@ -17,6 +18,7 @@ class App extends React.Component {
     return (
       <div className="App">
           <Switch>
+            <Route path="/users/hope/settings" render={() =><SettingsComp />} />
             <Route path="/users/hope" render={() =><MainContainer />} />
             <Route path="/login" render={() => <LoginContainer />} />
           </Switch>

@@ -44,6 +44,19 @@ class TopNavBar extends React.Component {
             padding-right: 1%;
         `;
 
+        const HomeStyle = styled.a`
+            font-size: 1.2em;
+            text-align: center;
+            float: left;
+            color: palevioletred;
+            display: inline-block;
+            padding-top: 0.5%;
+            padding-bottom: 0.5%;
+            padding-left: 1%;
+            border-right: 1px solid lightgrey;
+            padding-right: 1%;
+        `;
+
         const NavbarHeader = styled.div`
             position: relative;
             top: 0;
@@ -64,8 +77,8 @@ class TopNavBar extends React.Component {
 
         return(<div>
                <div>
-            {this.props.user.name ? 
-                <>
+            {/* {this.props.user.name ?  */}
+                {/* <> */}
                 <NavbarHeader>
                 <Container maxWidth="xl" borderBottom={1}>
                     <Paper elevation={3} style={{ padding: 0, margin: 0}}>
@@ -74,19 +87,22 @@ class TopNavBar extends React.Component {
                                 <Logout onClick={this.props.handleLogout}>Logout</Logout>
                             </StyledLink>
                             <StyledLink to="/users/hope">
+                                <HomeStyle>Home</HomeStyle>
+                            </StyledLink>
+                            <StyledLink to="/users/hope/settings">
                                 <Settings>Settings</Settings>
                             </StyledLink>
                     </Paper>
                 </Container>
                 </NavbarHeader>
                 
-                </>
-                :
-                <>
-                    <DropdownMenu users={this.props.users} handleUserChange={this.props.handleUserChange} chooseUser={this.props.chooseUser}/>
-                </> 
+                {/* </> */}
+                {/* : */}
+                {/* <> */}
+                    {/* <DropdownMenu users={this.props.users} handleUserChange={this.props.handleUserChange} chooseUser={this.props.chooseUser}/> */}
+                {/* </>  */}
                 
-            }
+            {/* } */}
             </div>
         </div>)
     }
