@@ -1,10 +1,13 @@
 import React from 'react'
+//redux
+import { connect } from 'react-redux'
+//styling
 import styled from 'styled-components';
 
 
 class Event extends React.Component {
-    render() {
-        
+    
+    renderTheEvents = () => {
         const EventInfo = styled.div`
             font-size: 1em;
             text-align: center;
@@ -15,26 +18,47 @@ class Event extends React.Component {
 
         const DeleteButton = styled.button`
             color: palevioletred;
-            font-size: 1em;
+            font-size: 0.5em;
             border: 2px solid palevioletred;
-            border-radius: 3px;
-            width: 5%;
-            height: 20%;
-            font-size: 20%;
+            border-radius: 25%;
             text-align: center;
-            float: right;
+            color: white;
+            background-color: palevioletred;
+            margin-left: 5%;
         `;
 
+        if (this.props.page.layout.includes("Weekly Log")) {
+            return(<>
+                
+                <EventInfo>
+                 Event Reminder: {this.props.event.name}
+                </EventInfo>
+            </>) 
+        } else {
+            return(<>
+                <EventInfo onClick={() => this.props.updateEvent(this.props.event, this.props.event.date)}>
+                 {this.props.event.name}
+                <DeleteButton onClick={()=> this.props.deleteEvent(this.props.event)}>
+                    X
+                </DeleteButton>
+                </EventInfo>
+            </>)
+        }
+    }
 
+
+    render() {
+        
         return(<>
-            <EventInfo onClick={() => this.props.updateEvent(this.props.event, this.props.event.date)}>
-             {this.props.event.name}
-            <DeleteButton onClick={()=> this.props.deleteEvent(this.props.event)}>
-                X
-            </DeleteButton>
-            </EventInfo>
+            {this.renderTheEvents()}
         </>)
     }
 }
 
-export default Event
+const mapStateToProps = (state) => {
+    return {
+        page: state.page
+    }
+}
+
+export default connect(mapStateToProps)(Event)

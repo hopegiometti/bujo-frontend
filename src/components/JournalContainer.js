@@ -9,7 +9,6 @@ class JournalContainer extends React.Component {
     
     render() {
         return(<div>
-            This is Your {this.props.journal.year} Journal!
                 <Page togglePageForm={this.props.togglePageForm} page={this.props.page} events={this.props.events} handleNewSubmit={this.props.handleNewSubmit}/>
         </div>)
     }

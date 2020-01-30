@@ -11,16 +11,44 @@ class PageForm extends React.Component {
 
     renderWeeklyOptions = () => {
         if (this.props.pageLayout === "Weekly Log") {
+            if (this.props.pageMonth === "January" || this.props.pageMonth === "March" || this.props.pageMonth === "May" || this.props.pageMonth === "July" || this.props.pageMonth === "August" || this.props.pageMonth === "October" || this.props.pageMonth === "December") {
             return(<div>
                 <label>Pick a week:</label>
                 <select value={this.props.weeklyLayoutWeek} onChange={this.props.handlePageFormWeekChange}>
-                            <option disabled value="" >Select</option>
-                            <option value="Week One">Week One</option>
-                            <option value="Week Two">Week Two</option>
-                            <option value="Week Three">Week Three</option>
-                            <option value="Week Four">Week Four</option>
+                    <option selected disabled value="" >Select</option>
+                    <option value="Week One">Week One</option>
+                    <option value="Week Two">Week Two</option>
+                    <option value="Week Three">Week Three</option>
+                    <option value="Week Four">Week Four</option>
+                    <option value="Week Five">Week Five</option>
                 </select>
                 </div>)
+            } else {
+                return(<div>
+                    <label>Pick a week:</label>
+                    <select value={this.props.weeklyLayoutWeek} onChange={this.props.handlePageFormWeekChange}>
+                        <option selected disabled value="" >Select</option>
+                        <option value="Week One">Week One</option>
+                        <option value="Week Two">Week Two</option>
+                        <option value="Week Three">Week Three</option>
+                        <option value="Week Four">Week Four</option>
+                    </select>
+                    </div>) 
+            }
+        } 
+    }
+
+    renderNewListForm = () => {
+        if (this.props.pageLayout === "List") {
+            return(<div>
+                    <label>List Name:</label>
+                    <input 
+                    type="text"
+                    name="name"
+                    value={this.props.listName}
+                    onChange={this.props.handleListNameChange}
+                    />
+            </div>)
         }
     }
 
@@ -62,8 +90,10 @@ class PageForm extends React.Component {
                             <option value="Monthly Log">Monthly Log</option>
                             <option value="Weekly Log">Weekly Log</option>
                             <option value="Habit Tracker">Habit Tracker</option>
+                            <option value="List">List</option>
                         </select>
                         {this.renderWeeklyOptions()}
+                        {this.renderNewListForm()}
                     </div>
                     <input type="submit" value="Submit"/>
             </form>
@@ -93,8 +123,10 @@ class PageForm extends React.Component {
                             <option value="Monthly Log">Monthly Log</option>
                             <option value="Weekly Log">Weekly Log</option>
                             <option value="Habit Tracker">Habit Tracker</option>
+                            <option value="List">List</option>
                         </select>
                         {this.renderWeeklyOptions()}
+                        {this.renderNewListForm()}
                     </div>
                     <input type="submit" value="Submit"/>
             </form>

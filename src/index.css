@@ -20,5 +20,38 @@ code {
 
 .Collapsible {
   text-align: left;
-  text-indent: 5%; 
+  text-indent: 1%;
+}
+
+.Collapsible__contentOuter {
+  /* border-bottom: 1px solid lightgrey; */
+  display:block;
+}
+
+.Collapsible__contentInner {
+  text-align: left;
+}
+
+.icon {
+  display: inline-block;
+  float: right;
+}
+
+.rotate90 {
+  transform: rotateZ(90deg);
+}
+
+/* html { 
+  background: url(https://i.pinimg.com/originals/76/39/49/7639492a081f0b653a416e7b19368ba3.png) no-repeat center center fixed; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+} */
+
+body, html {
+  background: url(https://i.pinimg.com/originals/76/39/49/7639492a081f0b653a416e7b19368ba3.png) no-repeat center center fixed;
+  background-size: cover;
+  height: 100%;
+  overflow: auto;
 }

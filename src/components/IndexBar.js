@@ -9,48 +9,20 @@ import Paper from '@material-ui/core/Paper';
 import Collapsible from 'react-collapsible';
 
 class IndexBar extends React.Component {
-    state={
-        hover: false
-    }
-
-    toggleHover = () => {
-        if (this.state.hover) {
-            this.setState({
-                hover: false
-            })
-        } else {
-            this.setState({
-                hover: true
-            })
-        }
-    }
 
     renderButton = () => {
-        const AddButtonHover = styled.button`
+    
+        const AddButton = styled.button`
             color: white;
-            font-size: 1em;
+            font-size: 0.8em;
             border: 2px solid palevioletred;
             border-radius: 3px;
             background-color: palevioletred;
+            margin-top: 10%;
         `;
 
-        const AddButton = styled.button`
-            color: palevioletred;
-            font-size: 1em;
-            border: 2px solid palevioletred;
-            border-radius: 3px;
-        `;
+        return <AddButton onClick={this.props.togglePageForm}>add page</AddButton>
 
-
-        if (this.state.hover) {
-           return <AddButtonHover onClick={this.props.togglePageForm} variant="contained" color="primary">
-                add page
-            </AddButtonHover>
-        } else {
-           return <AddButton onClick={this.props.togglePageForm} variant="contained" color="primary">
-                add page
-            </AddButton>
-        }
     }
 
 
@@ -59,7 +31,7 @@ class IndexBar extends React.Component {
 
         this.props.pages.map((page) => {
             if (page.month === month) {
-                pagesForThatMonth.push(<IndexItem key={page.id} page={page} handleNavClick={this.props.handleNavClick} deletePage={this.props.deletePage}/>)
+                pagesForThatMonth.push(<IndexItem key={page.id} page={page} handleNavClick={this.props.handleNavClick} deletePage={this.props.deletePage} />)
             } 
         })
         return pagesForThatMonth
@@ -73,7 +45,7 @@ class IndexBar extends React.Component {
             margin-right: 20px; 
             font-family: "Open Sans", sans-serif;
             font-size: 100%;
-            color: #333;
+            color: grey;
             border: none;
         `;
 
@@ -81,17 +53,20 @@ class IndexBar extends React.Component {
 
         let pageMonths = this.props.pages.map(page => page.month)
         let uniqueMonths = [...new Set(pageMonths)]
+        let allMonths = ['January','February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+        let monthsInOrder = uniqueMonths.sort((a, b) => allMonths.indexOf(a) - allMonths.indexOf(b))
 
         return(<div>
             <MenuLI>
-                {uniqueMonths.map(month => 
+                {monthsInOrder.map(month => 
                 <>
+                    <span className="icon">+</span>
                     <Collapsible trigger={month} transitionTime={100}>
                         {this.renderIndexItems(month)}
                     </Collapsible>
                 </>)}
                 {/* {this.props.pages.map(page => <IndexItem key={page.id} page={page} handleNavClick={this.props.handleNavClick} deletePage={this.props.deletePage}/>)} */}
-                <span onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover}>
+                <span>
                     {this.renderButton()}
                 </span>
             </MenuLI>

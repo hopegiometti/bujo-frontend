@@ -18,7 +18,6 @@ class EventForm extends React.Component {
         `;
 
         
-        
         return(<div>
             { this.props.event ? 
             <>
@@ -30,7 +29,7 @@ class EventForm extends React.Component {
                                 value={this.props.name}
                                 placeholder={this.props.event.name}
                             />
-                        <Input type="submit" value="Submit"/>
+                        <Input type="submit" value="edit"/>
                 </form> 
             </>
             :
@@ -43,7 +42,7 @@ class EventForm extends React.Component {
                         value={this.props.name}
                         placeholder="new event"
                     />
-                    <Input type="submit" value="Submit"/>
+                    <Input type="submit" value="add"/>
                 </form>
             </>
             }

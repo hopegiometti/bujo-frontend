@@ -15,6 +15,12 @@ import { addPage } from '../redux/actions'
 import { deletePage } from '../redux/actions'
 import { updatePage } from '../redux/actions'
 import { getUsers } from '../redux/actions'
+import { getJournals } from '../redux/actions'
+import { getUserPages } from '../redux/actions'
+import { getTasks } from '../redux/actions'
+import { getHabits } from '../redux/actions'
+import { getStreaks } from '../redux/actions'
+import { getItems } from '../redux/actions'
 //styling
 import styled from 'styled-components';
 import Container from '@material-ui/core/Container';
@@ -25,6 +31,7 @@ import { flexbox } from '@material-ui/system';
 import Paper from '@material-ui/core/Paper';
 
 
+
 class mainContainer extends React.Component {
     state={
         showPageForm: false,
@@ -32,19 +39,20 @@ class mainContainer extends React.Component {
         pageLayout: '',
         updatePage: {},
         updateForm: false,
-        chosenUser: {},
-        weeklyLayoutWeek: ''
+        userId: {},
+        weeklyLayoutWeek: '',
+        listName: ''
     }
 
     //lifecycle
     componentDidMount() {
-        fetch(`http://localhost:3000/users/3`)
+        fetch(`http://localhost:3000/users/14`)
         .then(r => r.json())
         .then((hope) => {
             this.props.setUser(hope)
         })
 
-        fetch("http://localhost:3000/journals/3")
+        fetch("http://localhost:3000/journals/13")
         .then(r => r.json())
         .then((journal) => {
             this.props.setJournal(journal)
@@ -54,6 +62,8 @@ class mainContainer extends React.Component {
         .then(r => r.json())
         .then((pages) => {
             this.props.setPages(pages)
+            let allUsersPages = this.props.pages.filter(page => page.journal_id === this.props.journal.id)
+            this.props.getUserPages(allUsersPages)
         })
 
         fetch("http://localhost:3000/users")
@@ -61,16 +71,69 @@ class mainContainer extends React.Component {
         .then((allUsers) => {
             this.props.getUsers(allUsers)
         })
+
+        fetch("http://localhost:3000/journals")
+        .then(r => r.json())
+        .then((allJournals) => {
+            this.props.getJournals(allJournals)
+        })
+
     }
     
     //other methods
     handleNavClick = (pageToNavTo) => {
-        //fetch to grab the page and then call on these actions
-        fetch(`http://localhost:3000/pages/${pageToNavTo.id}`)
-        .then(r => r.json())
-        .then((page) => {
-            this.props.setPage(page)
-            this.props.setEvents(page.events)
+        if (pageToNavTo.layout.includes("Weekly Log") && this.props.page.month === pageToNavTo.month) {
+            fetch(`http://localhost:3000/pages/${pageToNavTo.id}`)
+            .then(r => r.json())
+            .then((page) => {
+                this.props.setPage(page)
+                this.props.getTasks(page.tasks)
+            })
+        } else if (pageToNavTo.layout.includes("Weekly Log")) {
+           let pagesForTheSameMonth = this.props.userPages.filter(page => page.month === pageToNavTo.month)
+           if (pagesForTheSameMonth.length > 0) {
+               let monthlyLogForMonth = pagesForTheSameMonth.filter(page => page.layout === "Monthly Log")
+               if (monthlyLogForMonth.length > 0) {
+                   this.props.setEvents(monthlyLogForMonth[0].events)
+               }   
+           }
+           fetch(`http://localhost:3000/pages/${pageToNavTo.id}`)
+            .then(r => r.json())
+            .then((page) => {
+                this.props.setPage(page)
+                this.props.getTasks(page.tasks)})
+        } else if (pageToNavTo.layout.includes("Habit Tracker") && this.props.page.month !== pageToNavTo.month) {
+            this.props.getHabits([])
+            this.props.getStreaks([])
+            fetch(`http://localhost:3000/pages/${pageToNavTo.id}`)
+            .then(r => r.json())
+            .then((page) => {
+                this.props.setPage(page)
+                this.props.getHabits(page.habits)
+                page.habits.forEach(habit => {
+                    this.props.getStreaks(habit.streaks)
+                })
+            })
+        } else if (pageToNavTo.layout.includes("List")) {
+            fetch(`http://localhost:3000/pages/${pageToNavTo.id}`)
+            .then(r => r.json())
+            .then((page) => {
+                this.props.setPage(page)
+                this.props.getItems(page.items)
+            })
+        } else {
+            fetch(`http://localhost:3000/pages/${pageToNavTo.id}`)
+            .then(r => r.json())
+            .then((page) => {
+                this.props.setPage(page)
+                this.props.setEvents(page.events)
+            })
+        }
+    }
+
+    handleListNameChange = (evt) => {
+        this.setState({
+            listName: evt.target.value
         })
     }
 
@@ -133,9 +196,9 @@ class mainContainer extends React.Component {
     newPageSubmit = (evt) => {
         evt.preventDefault()
 
-        let layoutName = `${this.state.pageLayout} - ${this.state.weeklyLayoutWeek}`
-
-        fetch("http://localhost:3000/pages", {
+        if (this.state.weeklyLayoutWeek !== '') {
+            let layoutName = `${this.state.pageLayout} - ${this.state.weeklyLayoutWeek}`
+            fetch("http://localhost:3000/pages", {
             method: "POST",
             headers: {
                 'content-type': 'application/json',
@@ -154,11 +217,78 @@ class mainContainer extends React.Component {
                 showPageForm: false
             })
         })
+        } else if (this.state.pageLayout.includes("List")) {
+            let layoutName = `${this.state.listName} List`
+            fetch("http://localhost:3000/pages", {
+            method: "POST",
+            headers: {
+                'content-type': 'application/json',
+                'accepts': 'application/json'
+            },
+            body: JSON.stringify({
+                month: this.state.pageMonth,
+                layout: layoutName,
+                journal_id: this.props.journal.id
+            })
+            })
+            .then(r => r.json())
+            .then((newPage) => {
+                this.props.addPage(newPage)
+                this.setState({
+                    showPageForm: false
+                })
+            })
+        } else {
+            fetch("http://localhost:3000/pages", {
+            method: "POST",
+            headers: {
+                'content-type': 'application/json',
+                'accepts': 'application/json'
+            },
+            body: JSON.stringify({
+                month: this.state.pageMonth,
+                layout: this.state.pageLayout,
+                journal_id: this.props.journal.id
+            })
+        })
+        .then(r => r.json())
+        .then((newPage) => {
+            this.props.addPage(newPage)
+            this.setState({
+                showPageForm: false
+            })
+        })
+        }
+
+        
     }
 
     updatePageSubmit = (evt) => {
         evt.preventDefault()
-        fetch(`http://localhost:3000/pages/${this.state.updatePage.id}`, {
+        if (this.state.pageLayout.includes("List")) {
+            let layoutName = `${this.state.listName} List`
+            fetch(`http://localhost:3000/pages/${this.state.updatePage.id}`, {
+            method: "PATCH",
+            headers: {
+                'content-type': 'application/json',
+                'accepts': 'application/json'
+            },
+            body: JSON.stringify({
+                month: this.state.updatePage.month,
+                layout: layoutName,
+                journal_id: this.props.journal.id
+            })
+            })
+            .then(r => r.json())
+            .then((updatedPage) => {
+                this.props.updatePage(updatedPage)
+                this.props.setPage(updatedPage)
+                this.setState({
+                    showPageForm: false
+                })
+        })
+        } else {
+            fetch(`http://localhost:3000/pages/${this.state.updatePage.id}`, {
             method: "PATCH",
             headers: {
                 'content-type': 'application/json',
@@ -170,14 +300,16 @@ class mainContainer extends React.Component {
                 journal_id: this.props.journal.id
             })
         })
-        .then(r => r.json())
-        .then((updatedPage) => {
-            this.props.updatePage(updatedPage)
-            this.props.setPage(updatedPage)
-            this.setState({
-                showPageForm: false
+            .then(r => r.json())
+            .then((updatedPage) => {
+                this.props.updatePage(updatedPage)
+                this.props.setPage(updatedPage)
+                this.setState({
+                    showPageForm: false
+                })
             })
-        })
+        }
+        
     }
 
     //delete page
@@ -192,22 +324,45 @@ class mainContainer extends React.Component {
     }
 
     handleUserChange = (evt) => {
-        console.log(evt.target)
         this.setState({
-            chosenUser: evt.target.value
+            userId: evt.target.value
         })
     }
 
-    chooseUser = () => {
+    chooseUser = (evt) => {
+        evt.preventDefault()
+        fetch(`http://localhost:3000/users/${this.state.userId}`)
+        .then(r => r.json())
+        .then((user) => {
+            this.props.setUser(user)
+            this.props.setPage({})
+        })
 
+        let userIdInteger = parseInt(this.state.userId)
+        let userJournals = this.props.journals.filter(journal => journal.user_id === userIdInteger)
+        let userFirstJournal = userJournals[0]
+        fetch(`http://localhost:3000/journals/${userFirstJournal.id}`)
+        .then(r => r.json())
+        .then((journal) => {
+           this.props.setJournal(journal) 
+           let allUsersPages = this.props.pages.filter(page => page.journal_id === this.props.journal.id)
+           this.props.getUserPages(allUsersPages)
+        })
     }
 
     renderPageForm = () => {
         if (this.state.updateForm) {
-            return <PageForm handlePageFormWeekChange={this.handlePageFormWeekChange} updateForm={this.state.updateForm} togglePageForm={this.togglePageForm} updatePageSubmit={this.updatePageSubmit} handlePageFormLayoutChange={this.handlePageFormLayoutChange} pageMonth={this.state.updatePage.month} pageLayout={this.state.pageLayout}/>
+            return <PageForm handleListNameChange={this.handleListNameChange} listName={this.state.listName} handlePageFormWeekChange={this.handlePageFormWeekChange} updateForm={this.state.updateForm} togglePageForm={this.togglePageForm} updatePageSubmit={this.updatePageSubmit} handlePageFormLayoutChange={this.handlePageFormLayoutChange} pageMonth={this.state.updatePage.month} pageLayout={this.state.pageLayout}/>
         } else {
-            return <PageForm handlePageFormWeekChange={this.handlePageFormWeekChange} updateForm={this.state.updateForm} togglePageForm={this.togglePageForm} newPageSubmit={this.newPageSubmit} handlePageFormMonthChange={this.handlePageFormMonthChange} handlePageFormLayoutChange={this.handlePageFormLayoutChange} pageMonth={this.state.pageMonth} pageLayout={this.state.pageLayout}/>
+            return <PageForm handleListNameChange={this.handleListNameChange} listName={this.state.listName} handlePageFormWeekChange={this.handlePageFormWeekChange} updateForm={this.state.updateForm} togglePageForm={this.togglePageForm} newPageSubmit={this.newPageSubmit} handlePageFormMonthChange={this.handlePageFormMonthChange} handlePageFormLayoutChange={this.handlePageFormLayoutChange} pageMonth={this.state.pageMonth} pageLayout={this.state.pageLayout}/>
         }
+    }
+
+    handleLogout = () => {
+        this.props.setUser({})
+        this.props.getUserPages([])
+        this.props.setPage({})
+        this.props.setJournal({})
     }
     
 
@@ -228,6 +383,7 @@ class mainContainer extends React.Component {
         `
         const IndexStyle = styled.div`
             width: 20%;
+            text-align: left;
             float: left;
         `
         const MenuToggle = styled.input`
@@ -239,6 +395,7 @@ class mainContainer extends React.Component {
             top: 0;
             left: 0;
             padding-top: 60px;
+            padding-bottom: 20%;
             width: 100%;
             overflow-y: scroll;
             text-align: center;
@@ -246,22 +403,21 @@ class mainContainer extends React.Component {
             transition: opacity 300ms ease-in, visibility 0s ease-in 300ms;
         `;
 
-        console.log(this.props.users)
+        
         return(
             <div>
-                <TopNavBar users={this.props.users} chosenUser={this.state.chosenUser} handleUserChange={this.handleUserChange} chooseUser={this.chooseUser}/>
-                <Title>{this.props.hello} {this.props.user.name}</Title>
+                <TopNavBar handleLogout={this.handleLogout} users={this.props.users} userId={this.state.userId} handleUserChange={this.handleUserChange} chooseUser={this.chooseUser}/>
                 <IndexStyle>
                     <MenuToggle />
                     <NavbarHeader>
-                        <Container maxWidth="xs">
-                            <Paper elevation={3} style={{ padding: 0, margin: 0}}>
-                                <IndexBar pages={this.props.pages} handleNavClick={this.handleNavClick} togglePageForm={this.togglePageForm} deletePage={this.deletePage}/>
-                            </Paper>
-                        </Container>
+                            <Container maxWidth="xs">
+                                <Paper elevation={3} style={{ padding: 0, margin: 0}}>
+                                    <IndexBar pages={this.props.userPages} handleNavClick={this.handleNavClick} togglePageForm={this.togglePageForm} deletePage={this.deletePage}/>
+                                </Paper>
+                            </Container>
                     </NavbarHeader>
                 </IndexStyle>
-                    {this.state.showPageForm ? this.renderPageForm() : <JournalContainer journal={this.props.journal} page={this.props.page} events={this.props.events} togglePageForm={this.togglePageForm}/>}
+                    {this.state.showPageForm ? <><p>   </p>{this.renderPageForm()}</> : <JournalContainer journal={this.props.journal} page={this.props.page} events={this.props.events} togglePageForm={this.togglePageForm}/>}
             </div>
         )
     }
@@ -275,7 +431,12 @@ const mapStateToProps = (state) => {
         pages: state.pages,
         page: state.page,
         events: state.events,
-        users: state.users
+        users: state.users,
+        journals: state.journals,
+        userPages: state.userPages,
+        tasks: state.tasks,
+        habits: state.habits,
+        streaks: state.streaks
     }
 }
 
@@ -285,4 +446,4 @@ const mapStateToProps = (state) => {
 //     }
 // }
 
-export default connect(mapStateToProps, { setUser, setJournal, setPages, setPage, setEvents, addPage, deletePage, updatePage, getUsers })(mainContainer)
+export default connect(mapStateToProps, { setUser, setJournal, setPages, setPage, setEvents, addPage, deletePage, updatePage, getUsers, getJournals, getUserPages, getTasks, getHabits, getStreaks, getItems })(mainContainer)

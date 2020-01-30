@@ -81,3 +81,94 @@ export const getUsers = (allUsers) => {
     payload: allUsers
   }
 }
+
+export const getJournals = (allJournals) => {
+  return {
+    type: "GET_JOURNALS",
+    payload: allJournals
+  }
+}
+
+export const getUserPages = (userPages) => {
+  return {
+    type: "GET_USER_PAGES",
+    payload: userPages
+  }
+}
+
+export const getTasks = (tasks) => {
+  return {
+    type: "GET_TASKS",
+    payload: tasks
+  }
+}
+
+export const addTask = (newTask) => {
+  return {
+    type: "ADD_TASK",
+    payload: newTask
+  }
+}
+
+export const deleteTask = (taskToDelete) => {
+  return {
+    type: "DELETE_TASK",
+    payload: taskToDelete
+  }
+}
+
+export const updateTask = (taskToUpdate) => {
+  return {
+    type: "UPDATE_TASK",
+    payload: taskToUpdate
+  }
+}
+
+export const getHabits = (allHabits) => {
+  return {
+    type: 'GET_HABITS',
+    payload: allHabits
+  }
+}
+
+export const getStreaks = (theStreaks) => {
+  return {
+    type: 'GET_STREAKS',
+    payload: theStreaks
+  }
+}
+
+export const addStreak = (newStreak) => {
+  return {
+    type: 'ADD_STREAK',
+    payload: newStreak
+  }
+}
+
+export const addHabit = (newHabit) => {
+  return {
+    type: 'ADD_HABIT',
+    payload: newHabit
+  }
+}
+
+export const getItems = (allListItems) => {
+  return {
+    type: 'GET_ITEMS',
+    payload: allListItems
+  }
+}
+
+export const addItem = (newItem) => {
+  return {
+    type: 'ADD_ITEM',
+    payload: newItem
+  }
+}
+
+export const deleteItem = (itemToDelete) => {
+  return {
+    type: 'DELETE_ITEM',
+    payload: itemToDelete
+  }
+}

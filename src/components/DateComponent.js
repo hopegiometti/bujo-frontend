@@ -1,9 +1,13 @@
 import React from 'react'
+//components
 import Event from './Event'
 import EventForm from './EventForm'
+//redux
 import { connect } from 'react-redux'
 import { updateEvent } from '../redux/actions'
 import { addEvent } from '../redux/actions'
+
+//styling
 import styled from 'styled-components';
 import { flexbox } from '@material-ui/system';
 import Grid from '@material-ui/core/Grid';
@@ -44,7 +48,6 @@ class DateComponent extends React.Component {
             this.setState({
                 updateEvent: true,
                 name: eventToUpdate.name,
-                // date: eventToUpdate.date,
                 event: eventToUpdate
             })
         }
@@ -77,7 +80,6 @@ class DateComponent extends React.Component {
 
     handleNewSubmit = (evt, eventDate) => {
         evt.preventDefault()
-        
         fetch("http://localhost:3000/events", {
             method: "POST",
             headers: {
@@ -115,25 +117,26 @@ class DateComponent extends React.Component {
             float: left;
         `;
 
-        
-        // if (this.props.event) {
+        if (this.props.dayName) {
+            let dayInitial = this.props.dayName.split("")[0]
+
             if (this.props.event[0]) {
                 if (this.state.updateEvent) {
                 
-                    return(<div onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover}>
-                           <NumberStyle>{this.props.date}</NumberStyle> <EventForm date={this.props.date} handleEventNameChange={this.handleEventNameChange} handleUpdateSubmit={this.handleUpdateSubmit} event={this.state.event}/>
+                    return(<div>
+                            <NumberStyle>{this.props.date}{dayInitial}</NumberStyle><EventForm date={this.props.date} handleEventNameChange={this.handleEventNameChange} handleUpdateSubmit={this.handleUpdateSubmit} event={this.state.event}/>
                     </div>)
                 } else {
-                    return(<div onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover}>
-                            <NumberStyle>{this.props.date}</NumberStyle><Event event={this.props.event[0]} deleteEvent={this.props.deleteEvent} updateEvent={this.updateEvent}/>
+                    return(<div>
+                            <NumberStyle>{this.props.date}{dayInitial}</NumberStyle><Event event={this.props.event[0]} deleteEvent={this.props.deleteEvent} updateEvent={this.updateEvent}/>
                     </div>)
                 }
-            // } 
-        } else {
-            return(<div onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover}>
-                {this.renderNewForm()}
-            </div>)
-        }  
+            } else {
+                return(<div onMouseEnter={this.toggleHover} onMouseLeave={this.toggleHover}>
+                    {this.renderNewForm()}
+                </div>)
+            } 
+        } 
     }
 
     renderNewForm = () => {
@@ -145,17 +148,20 @@ class DateComponent extends React.Component {
             float: left;
         `;
 
-
-        if (this.state.hover) {
-            return (<><NumberStyle>{this.props.date}</NumberStyle><EventForm date={this.props.date} handleNewSubmit={this.handleNewSubmit} handleEventNameChange={this.handleEventNameChange}/></>)
-        } else {
-            return (<><NumberStyle>{this.props.date}</NumberStyle><InvisibleForm><EventForm date={this.props.date} handleNewSubmit={this.handleNewSubmit} handleEventNameChange={this.handleEventNameChange}/></InvisibleForm></>)
+        if (this.props.dayName) {
+            let dayInitial = this.props.dayName.split("")[0]
+        
+            if (this.state.hover) {
+                return (<><NumberStyle>{this.props.date}{dayInitial}</NumberStyle><EventForm date={this.props.date} handleNewSubmit={this.handleNewSubmit} handleEventNameChange={this.handleEventNameChange}/></>)
+            } else {
+                return (<><NumberStyle>{this.props.date}{dayInitial}</NumberStyle><InvisibleForm><EventForm date={this.props.date} handleNewSubmit={this.handleNewSubmit} handleEventNameChange={this.handleEventNameChange}/></InvisibleForm></>)
+            }
         }
     }
 
     render() {
         return(<div>
-                {this.renderEvents()}
+            {this.renderEvents()}
         </div>)
     }
 }

@@ -5,7 +5,13 @@ const initialState = {
     pages: [],
     events: [],
     page: {},
-    users: []
+    users: [],
+    journals: [],
+    userPages: [],
+    tasks: [],
+    habits: [],
+    streaks: [],
+    items: []
 }
 
 const journalReducer = (state = initialState , action) => {
@@ -57,7 +63,7 @@ const journalReducer = (state = initialState , action) => {
         case 'ADD_PAGE':
             return {
                 ...state,
-                pages: [...state.pages, action.payload],
+                userPages: [...state.userPages, action.payload],
                 page: action.payload
             }
         case 'DELETE_PAGE':
@@ -77,6 +83,80 @@ const journalReducer = (state = initialState , action) => {
             return {
                 ...state,
                 users: action.payload
+            }
+        case 'GET_JOURNALS':
+            return {
+                ...state, 
+                journals: action.payload 
+            }
+        case 'GET_USER_PAGES': 
+            return {
+                ...state,
+                userPages: action.payload
+            }
+        case 'GET_TASKS':
+            return {
+                ...state,
+                tasks: action.payload
+            }
+        case 'ADD_TASK':
+            let spreadedTasks = [...state.tasks, action.payload]
+            return {
+                ...state,
+                tasks: spreadedTasks
+            }
+        case 'DELETE_TASK':
+            let filteredTasks = state.tasks.filter(task => task.id !== action.payload)
+            return {
+                ...state,
+                tasks: filteredTasks
+            }
+        case 'UPDATE_TASK':
+            let filteredTasksTwo = state.tasks.filter(task => task.id !== action.payload.id)
+            let updatedTasks = [...filteredTasksTwo, action.payload]
+            return {
+                ...state,
+                tasks: updatedTasks
+            }
+        case 'GET_HABITS':
+            return {
+                ...state,
+                habits: action.payload
+            }
+        case 'GET_STREAKS':
+            let spreadedStreaks = [...state.streaks, action.payload]
+            return {
+                ...state,
+                streaks: spreadedStreaks
+            }
+        case 'ADD_STREAK':
+            let streaksWithNew = [...state.streaks, action.payload]
+            return {
+                ...state,
+                streaks: streaksWithNew
+            }
+        case 'ADD_HABIT':
+            let habitsWithNew = [...state.habits, action.payload]
+            return {
+                ...state,
+                habits: habitsWithNew
+            }
+        case 'GET_ITEMS':
+            return {
+                ...state,
+                items: action.payload
+            }
+        case 'ADD_ITEM':
+            let itemsWithNew = [...state.items, action.payload]
+            return {
+                ...state,
+                items: itemsWithNew
+            }
+        case 'DELETE_ITEM':
+            let filteredItems = state.items.filter(item => item.id !== action.payload)
+            return {
+                ...state,
+                items: filteredItems
             }
         default: 
             return state
