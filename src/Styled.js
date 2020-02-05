@@ -34,3 +34,10 @@ export const SubmitInput = styled.input`
     background-color: palevioletred;
     margin-top: 10%;
 `;
+
+export default createGlobalStyle`
+    @font-face {
+        font-family: 'Open Sans', sans-serif;
+        @import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap') format('woff2')
+    }
+`;
