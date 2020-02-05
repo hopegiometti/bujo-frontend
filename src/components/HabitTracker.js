@@ -57,7 +57,8 @@ class HabitTracker extends React.Component {
 
     createNewHabit = (evt) => {
         evt.preventDefault()
-        fetch('http://localhost:3000/habits', {
+        // fetch('http://localhost:3000/habits', {
+        fetch('https://bujo-api.herokuapp.com/habits', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',

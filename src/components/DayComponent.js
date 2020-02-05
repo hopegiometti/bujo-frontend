@@ -55,7 +55,8 @@ class DayComponent extends React.Component {
 
     handleUpdateTaskSubmit = (evt) => {
         evt.preventDefault()
-        fetch(`http://localhost:3000/tasks/${this.state.chosenTask.id}`, {
+        // fetch(`http://localhost:3000/tasks/${this.state.chosenTask.id}`, {
+        fetch(`https://bujo-api.herokuapp.com/tasks/${this.state.chosenTask.id}`, {
             method: "PATCH",
             headers: {
                 'content-type': 'application/json',
@@ -77,7 +78,8 @@ class DayComponent extends React.Component {
 
     handleNewTaskSubmit = (evt) => {
         evt.preventDefault()
-        fetch("http://localhost:3000/tasks", {
+        // fetch("http://localhost:3000/tasks", {
+        fetch("https://bujo-api.herokuapp.com/tasks", {
             method: "POST",
             headers: {
                 'content-type': 'application/json',
@@ -100,7 +102,8 @@ class DayComponent extends React.Component {
     }
 
     deleteTask = (evt, taskToDelete) => {
-        fetch(`http://localhost:3000/tasks/${taskToDelete}`, {
+        // fetch(`http://localhost:3000/tasks/${taskToDelete}`, {
+        fetch(`https://bujo-api.herokuapp.com/tasks/${taskToDelete}`, { 
             method: "DELETE"
         })
         .then(r => r.json())

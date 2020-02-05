@@ -32,7 +32,8 @@ class Streak extends React.Component {
     }
 
     handleClick = () => {
-        fetch('http://localhost:3000/streaks', {
+        // fetch('http://localhost:3000/streaks', {
+        fetch('https://bujo-api.herokuapp.com/streaks', {
             method: "POST",
             headers: {
                 'content-type': 'application/json',
@@ -45,7 +46,8 @@ class Streak extends React.Component {
         })
         .then(r => r.json())
         .then((newStreak) => {
-            fetch(`http://localhost:3000/pages/${this.props.page.id}`)
+            // fetch(`http://localhost:3000/pages/${this.props.page.id}`)
+            fetch(`https://bujo-api.herokuapp.com/pages/${this.props.page.id}`)
             .then(r => r.json())
             .then((page) => {
                 this.props.getHabits(page.habits)

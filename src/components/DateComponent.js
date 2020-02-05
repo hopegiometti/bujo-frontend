@@ -56,7 +56,8 @@ class DateComponent extends React.Component {
     handleUpdateSubmit = (evt, eventDate) => {
         evt.preventDefault()
         
-        fetch(`http://localhost:3000/events/${this.state.event.id}`, {
+        // fetch(`http://localhost:3000/events/${this.state.event.id}`, {
+        fetch(`https://bujo-api.herokuapp.com/events/${this.state.event.id}`, {
             method: "PATCH",
             headers: {
                 'content-type': 'application/json',
@@ -80,7 +81,8 @@ class DateComponent extends React.Component {
 
     handleNewSubmit = (evt, eventDate) => {
         evt.preventDefault()
-        fetch("http://localhost:3000/events", {
+        // fetch("http://localhost:3000/events", {
+        fetch("https://bujo-api.herokuapp.com/events", {
             method: "POST",
             headers: {
                 'content-type': 'application/json',

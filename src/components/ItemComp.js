@@ -23,7 +23,8 @@ class ItemComp extends React.Component {
     }
 
     deleteTheItem = (evt) => {
-        fetch(`http://localhost:3000/items/${this.props.item.id}`, {
+        // fetch(`http://localhost:3000/items/${this.props.item.id}`, {
+        fetch(`https://bujo-api.herokuapp.com/items/${this.props.item.id}`, {
             method: 'DELETE'
         })
         .then(r => r.json())

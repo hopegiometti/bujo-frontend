@@ -37,7 +37,8 @@ class Page extends React.Component {
 
     handleNewSubmit = (evt, eventDate) => {
         evt.preventDefault()
-        fetch("http://localhost:3000/events", {
+        // fetch("http://localhost:3000/events", {
+        fetch("https://bujo-api.herokuapp.com/events", {
             method: "POST",
             headers: {
                 'content-type': 'application/json',
@@ -88,7 +89,8 @@ class Page extends React.Component {
     
     //other methods
     deleteEvent = (eventToDelete) => {
-        fetch(`http://localhost:3000/events/${eventToDelete.id}`, {
+        // fetch(`http://localhost:3000/events/${eventToDelete.id}`, {
+        fetch(`https://bujo-api.herokuapp.com/events/${eventToDelete.id}`, {
             method: "DELETE"
         })
         .then(r => r.json())

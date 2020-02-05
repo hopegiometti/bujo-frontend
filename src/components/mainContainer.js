@@ -46,19 +46,22 @@ class mainContainer extends React.Component {
 
     //lifecycle
     componentDidMount() {
-        fetch(`http://localhost:3000/users/14`)
+        // fetch(`http://localhost:3000/users/14`)
+        fetch(`https://bujo-api.herokuapp.com/users/1`)
         .then(r => r.json())
         .then((hope) => {
             this.props.setUser(hope)
         })
 
-        fetch("http://localhost:3000/journals/13")
+        // fetch("http://localhost:3000/journals/13")
+        fetch("https://bujo-api.herokuapp.com/journals/1")
         .then(r => r.json())
         .then((journal) => {
             this.props.setJournal(journal)
         })
 
-        fetch("http://localhost:3000/pages")
+        // fetch("http://localhost:3000/pages")
+        fetch("https://bujo-api.herokuapp.com/pages")
         .then(r => r.json())
         .then((pages) => {
             this.props.setPages(pages)
@@ -66,13 +69,15 @@ class mainContainer extends React.Component {
             this.props.getUserPages(allUsersPages)
         })
 
-        fetch("http://localhost:3000/users")
+        // fetch("http://localhost:3000/users")
+        fetch("https://bujo-api.herokuapp.com/users")
         .then(r => r.json())
         .then((allUsers) => {
             this.props.getUsers(allUsers)
         })
 
-        fetch("http://localhost:3000/journals")
+        // fetch("http://localhost:3000/journals")
+        fetch("https://bujo-api.herokuapp.com/journals")
         .then(r => r.json())
         .then((allJournals) => {
             this.props.getJournals(allJournals)
@@ -83,7 +88,8 @@ class mainContainer extends React.Component {
     //other methods
     handleNavClick = (pageToNavTo) => {
         if (pageToNavTo.layout.includes("Weekly Log") && this.props.page.month === pageToNavTo.month) {
-            fetch(`http://localhost:3000/pages/${pageToNavTo.id}`)
+            // fetch(`http://localhost:3000/pages/${pageToNavTo.id}`)
+            fetch(`https://bujo-api.herokuapp.com/pages/${pageToNavTo.id}`)
             .then(r => r.json())
             .then((page) => {
                 this.props.setPage(page)
@@ -97,7 +103,8 @@ class mainContainer extends React.Component {
                    this.props.setEvents(monthlyLogForMonth[0].events)
                }   
            }
-           fetch(`http://localhost:3000/pages/${pageToNavTo.id}`)
+        //    fetch(`http://localhost:3000/pages/${pageToNavTo.id}`)
+           fetch(`https://bujo-api.herokuapp.com/pages/${pageToNavTo.id}`)
             .then(r => r.json())
             .then((page) => {
                 this.props.setPage(page)
@@ -105,7 +112,8 @@ class mainContainer extends React.Component {
         } else if (pageToNavTo.layout.includes("Habit Tracker") && this.props.page.month !== pageToNavTo.month) {
             this.props.getHabits([])
             this.props.getStreaks([])
-            fetch(`http://localhost:3000/pages/${pageToNavTo.id}`)
+            // fetch(`http://localhost:3000/pages/${pageToNavTo.id}`)
+            fetch(`https://bujo-api.herokuapp.com/pages/${pageToNavTo.id}`)
             .then(r => r.json())
             .then((page) => {
                 this.props.setPage(page)
@@ -115,14 +123,16 @@ class mainContainer extends React.Component {
                 })
             })
         } else if (pageToNavTo.layout.includes("List")) {
-            fetch(`http://localhost:3000/pages/${pageToNavTo.id}`)
+            // fetch(`http://localhost:3000/pages/${pageToNavTo.id}`)
+            fetch(`https://bujo-api.herokuapp.com/pages/${pageToNavTo.id}`)
             .then(r => r.json())
             .then((page) => {
                 this.props.setPage(page)
                 this.props.getItems(page.items)
             })
         } else {
-            fetch(`http://localhost:3000/pages/${pageToNavTo.id}`)
+            // fetch(`http://localhost:3000/pages/${pageToNavTo.id}`)
+            fetch(`https://bujo-api.herokuapp.com/pages/${pageToNavTo.id}`)
             .then(r => r.json())
             .then((page) => {
                 this.props.setPage(page)
@@ -198,7 +208,8 @@ class mainContainer extends React.Component {
 
         if (this.state.weeklyLayoutWeek !== '') {
             let layoutName = `${this.state.pageLayout} - ${this.state.weeklyLayoutWeek}`
-            fetch("http://localhost:3000/pages", {
+            // fetch("http://localhost:3000/pages", {
+            fetch("https://bujo-api.herokuapp.com/pages", {
             method: "POST",
             headers: {
                 'content-type': 'application/json',
@@ -219,7 +230,8 @@ class mainContainer extends React.Component {
         })
         } else if (this.state.pageLayout.includes("List")) {
             let layoutName = `${this.state.listName} List`
-            fetch("http://localhost:3000/pages", {
+            // fetch("http://localhost:3000/pages", {
+            fetch("https://bujo-api.herokuapp.com/pages", {
             method: "POST",
             headers: {
                 'content-type': 'application/json',
@@ -239,7 +251,8 @@ class mainContainer extends React.Component {
                 })
             })
         } else {
-            fetch("http://localhost:3000/pages", {
+            // fetch("http://localhost:3000/pages", {
+            fetch("https://bujo-api.herokuapp.com/pages", {
             method: "POST",
             headers: {
                 'content-type': 'application/json',
@@ -267,7 +280,8 @@ class mainContainer extends React.Component {
         evt.preventDefault()
         if (this.state.pageLayout.includes("List")) {
             let layoutName = `${this.state.listName} List`
-            fetch(`http://localhost:3000/pages/${this.state.updatePage.id}`, {
+            // fetch(`http://localhost:3000/pages/${this.state.updatePage.id}`, {
+            fetch(`https://bujo-api.herokuapp.com/pages/${this.state.updatePage.id}`, {
             method: "PATCH",
             headers: {
                 'content-type': 'application/json',
@@ -288,7 +302,8 @@ class mainContainer extends React.Component {
                 })
         })
         } else {
-            fetch(`http://localhost:3000/pages/${this.state.updatePage.id}`, {
+            // fetch(`http://localhost:3000/pages/${this.state.updatePage.id}`, {
+            fetch(`https://bujo-api.herokuapp.com/pages/${this.state.updatePage.id}`, {
             method: "PATCH",
             headers: {
                 'content-type': 'application/json',
@@ -314,7 +329,8 @@ class mainContainer extends React.Component {
 
     //delete page
     deletePage = (pageToDelete) => {
-        fetch(`http://localhost:3000/pages/${pageToDelete.id}`, {
+        // fetch(`http://localhost:3000/pages/${pageToDelete.id}`, {
+        fetch(`https://bujo-api.herokuapp.com/pages/${pageToDelete.id}`, {
             method: "DELETE"
         })
         .then(r => r.json())
@@ -331,7 +347,8 @@ class mainContainer extends React.Component {
 
     chooseUser = (evt) => {
         evt.preventDefault()
-        fetch(`http://localhost:3000/users/${this.state.userId}`)
+        // fetch(`http://localhost:3000/users/${this.state.userId}`)
+        fetch(`https://bujo-api.herokuapp.com/users/${this.state.userId}`)
         .then(r => r.json())
         .then((user) => {
             this.props.setUser(user)
@@ -341,7 +358,8 @@ class mainContainer extends React.Component {
         let userIdInteger = parseInt(this.state.userId)
         let userJournals = this.props.journals.filter(journal => journal.user_id === userIdInteger)
         let userFirstJournal = userJournals[0]
-        fetch(`http://localhost:3000/journals/${userFirstJournal.id}`)
+        // fetch(`http://localhost:3000/journals/${userFirstJournal.id}`)
+        fetch(`https://bujo-api.herokuapp.com/journals/${userFirstJournal.id}`)
         .then(r => r.json())
         .then((journal) => {
            this.props.setJournal(journal) 

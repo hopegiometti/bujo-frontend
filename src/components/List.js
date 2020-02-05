@@ -16,7 +16,8 @@ class List extends React.Component {
 
     createNewItem = (evt) => {
         evt.preventDefault()
-        fetch("http://localhost:3000/items", {
+        // fetch("http://localhost:3000/items", {
+        fetch("https://bujo-api.herokuapp.com/items", {
             method: "POST",
             headers: {
                 'content-type': 'application/json',
